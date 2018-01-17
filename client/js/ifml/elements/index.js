@@ -6,7 +6,8 @@
 
 exports.elements = {
     ViewContainer: require('./viewcontainer').ViewContainer,
+    Layout: require('./layout').Layout,
     ViewComponent: require('./viewcomponent').ViewComponent,
     Event: require('./event').Event,
-    Action: require('./action').Action
+    Action: require('./action').Action,
 };

@@ -13,6 +13,8 @@ function ignore() { return undefined; }
 exports.defaultLink = function (cellView, magnet) {
     ignore(magnet);
     switch (cellView.model.get('type')) {
+    case 'ifml.Layout':
+        return new ifml.link.DataFlow();
     case 'ifml.ViewComponent':
         return new ifml.links.DataFlow();
     case 'ifml.Event':

@@ -1,0 +1,28 @@
+{
+	"elements": [{
+		"id": "mails",
+		"type": "ifml.Layout",
+		"attributes": {
+			"name": "Mails",
+			"default": true,
+			"landmark": false,
+			"xor": false,
+			"width": "match_parent",
+			"height": "match_parent",
+			"orientation": "vertical"
+		},
+		"metadata": {
+			"graphics": {
+				"position": {
+					"x": 750,
+					"y": -700
+				},
+				"size": {
+					"width": 180,
+					"height": 100
+				}
+			}
+		}
+	}],
+	"relations": []
+}

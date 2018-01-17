@@ -72,6 +72,19 @@ function mapViewContainer(container) {
     return obj;
 }
 
+function mapLayout(layout) {
+    var obj = mapElement(layout);
+    obj.attributes.name = layout.get('name');
+    obj.attributes.width = layout.get('width');
+    obj.attributes.height = layout.get('height');
+    obj.attributes.orientation = layout.get('orientation');
+    obj.attributes.default = layout.get('default');
+    obj.attributes.landmark = layout.get('landmark');
+    obj.attributes.xor = layout.get('xor');
+    obj.metadata.graphics.size = layout.get('size');
+    return obj;
+}
+
 function mapFlow(flow) {
     var vertices = flow.get('vertices'),
         statistics = flow.get('statistics');
@@ -98,6 +111,8 @@ function extractElements(cells) {
         switch (item.get('type')) {
         case 'ifml.ViewContainer':
             return mapViewContainer(item);
+        case 'ifml.Layout':
+            return mapLayout(item);
         case 'ifml.ViewComponent':
             return mapViewComponent(item);
         case 'ifml.Event':
@@ -117,6 +132,7 @@ function mapElementRelations(element) {
         .filter(function (cell) {
             switch (cell.get('type')) {
             case 'ifml.ViewContainer':
+            case 'ifml.Layout':
             case 'ifml.ViewComponent':
             case 'ifml.Event':
                 return true;

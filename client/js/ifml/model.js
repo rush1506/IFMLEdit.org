@@ -10,8 +10,9 @@ var _ = require('lodash'),
 var config = {
     type: {
         'ViewContainer': 'ifml.ViewContainer',
+        'Layout': 'ifml.Layout',
         'ViewComponent': 'ifml.ViewComponent',
-        'ViewElement': ['ifml.ViewContainer', 'ifml.ViewComponent'],
+        'ViewElement': ['ifml.ViewContainer', 'ifml.ViewComponent', 'ifml.Layout'],
         'Action': 'ifml.Action',
         'Event': 'ifml.Event',
         'DataFlow': 'ifml.DataFlow',

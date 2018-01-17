@@ -71,7 +71,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
     isContraint: true,
     requireEmbedding: true,
     fullyContained: true,
-    containers: ['ifml.ViewContainer'],
+    containers: ['ifml.ViewContainer', 'ifml.Layout'],
 
     initialize: function () {
         this.on('change:size', this._sizeChanged, this);

@@ -16,6 +16,6 @@ exports.DataFlow = Base.extend({
         }
     }, Base.prototype.defaults),
 
-    validSources: ['ifml.ViewComponent'],
-    validTargets: ['ifml.ViewComponent']
+    validSources: ['ifml.ViewComponent', 'ifml.Layout'],
+    validTargets: ['ifml.ViewComponent', 'ifml.Layout']
 });

@@ -18,7 +18,29 @@ function mapViewContainer(container) {
     });
 }
 
+function mapLayout(container) {
+    return new ifml.elements.Layout({
+        id: container.id,
+        name: container.attributes.name,
+        'default': container.attributes.default,
+        landmark: container.attributes.landmark,
+        xor: container.attributes.xor,
+        width: container.attributes.width,
+        height: container.attributes.height,
+        orientation: container.attributes.orientation,
+    });
+}
+
 function applyViewContainerMetadata(container, cells) {
+    var cell = cells[container.id];
+    cell.set('position', container.metadata.graphics.position);
+    cell.set('size', container.metadata.graphics.size);
+    if (container.metadata.statistics) {
+        cell.set('statistics', container.metadata.statistics.slice());
+    }
+}
+
+function applyLayoutMetadata(container, cells) {
     var cell = cells[container.id];
     cell.set('position', container.metadata.graphics.position);
     cell.set('size', container.metadata.graphics.size);
@@ -147,6 +169,8 @@ function mapElement(element) {
         return mapNavigationFlow(element);
     case 'ifml.DataFlow':
         return mapDataFlow(element);
+    case 'ifml.Layout':
+        return mapLayout(element);
     }
 }
 
@@ -154,6 +178,8 @@ function applyMetadata(element, cells) {
     switch (element.type) {
     case 'ifml.ViewContainer':
         return applyViewContainerMetadata(element, cells);
+    case 'ifml.Layout':
+        return applyLayoutMetadata(element, cells);
     case 'ifml.ViewComponent':
         return applyViewComponentMetadata(element, cells);
     case 'ifml.Event':
