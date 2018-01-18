@@ -24,6 +24,14 @@ exports.Layout = joint.shapes.basic.Generic.extend({
         width: 'match_parent',
         height: 'match_parent',
         orientation: 'vertical',
+        thisLeft_toRightOf: 'none',
+        thisLeft_toLeftOf: 'none',
+        thisRight_toRightOf: 'none',
+        thisRight_toLeftOf: 'none',
+        thisTop_toTopOf: 'none',
+        thisTop_toBottomOf: 'none',
+        thisBottom_toBottomOf: 'none',
+        thisBottom_toTopOf: 'none',
         attrs: {
             '.': {marker: 'passive'},
             '.ifml-layout-reference-rect': { 'follow-scale': 'auto' },
@@ -67,6 +75,15 @@ exports.Layout = joint.shapes.basic.Generic.extend({
         this.on('change:parent', this._parentChanged, this);
         this.on('change:accent', this._accentChanged, this);
         this.on('change:width', this._widthChanged, this);
+
+        this.on('change:thisLeft_toRightOf', this._thisLeft_toRightOfChanged, this);
+        this.on('change:thisLeft_toLeftOf', this._thisLeft_toLeftOfChanged, this);
+        this.on('change:thisRight_toRightOf', this._thisRight_toRightOfChanged, this);
+        this.on('change:thisRight_toLeftOf', this._thisRight_toLeftOfChanged, this);
+        this.on('change:thisTop_toTopOf', this._thisTop_toTopOfChanged, this);
+        this.on('change:thisTop_toBottomOf', this._thisTop_toBottomOfChanged, this);
+        this.on('change:thisBottom_toTopOf', this._thisBottom_toTopOfChanged, this);
+
         this.on('change:height', this._heightChanged, this);
         this.on('change:orientation', this._orientationChanged, this);
 
@@ -97,10 +114,9 @@ exports.Layout = joint.shapes.basic.Generic.extend({
                     return graph.getCell(id).get('name');
                 }
             },
-            editables = _.chain([{property: 'name', name: 'Name', type: 'string'},
-            {property: 'width', name: 'Width', type: 'string'}, 
-            {property: 'height', name: 'Height', type: 'string'}, 
-            {property: 'orientation', name: 'Orientation', type: 'string'}]);
+            editables = _.chain([
+                {property: 'name', name: 'Name', type: 'string'},
+                {property: 'orientation', name: 'Orientation', type: 'string'}]);
         if (graph) {
             if (this.get('parent') && !this.graph.getCell(this.get('parent')).get('xor')) {
                 editables = editables.concat(
@@ -119,6 +135,19 @@ exports.Layout = joint.shapes.basic.Generic.extend({
             editables = editables.concat(
                 {property: 'embeds', name: 'Children', type: 'elementslist', filter: filter, display: display}
             );
+            if (this.get('parent')) {
+                editables = editables.concat(
+                    {property: 'width', name: 'Width', type: 'string'}, 
+                    {property: 'height', name: 'Height', type: 'string'},
+                    {property: 'thisLeft_toRightOf', name: 'thisLeft_toRightOf', type: 'string'},
+                    {property: 'thisLeft_toLeftOf', name: 'thisLeft_toLeftOf', type: 'string'},
+                    {property: 'thisRight_toRightOf', name: 'thisRight_toRightOf', type: 'string'},
+                    {property: 'thisRight_toLeftOf', name: 'thisRight_toLeftOf', type: 'string'},
+                    {property: 'thisTop_toTopOf', name: 'thisTop_toTopOf', type: 'string'},
+                    {property: 'thisTop_toBottomOf', name: 'thisTop_toBottomOf', type: 'string'},
+                    {property: 'thisBottom_toTopOf', name: 'thisBottom_toTopOf', type: 'string'}
+                );
+            }
         }
         return editables.value();
     },
@@ -246,14 +275,46 @@ exports.Layout = joint.shapes.basic.Generic.extend({
     },
 
     _widthChanged: function () {
-
+        this._rerenderPreviewUI();
     },
 
     _heightChanged: function () {
-
+        this._rerenderPreviewUI();
     },
 
     _orientationChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _thisLeft_toRightOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisLeft_toLeftOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisRight_toRightOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisRight_toLeftOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisTop_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisTop_toBottomOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisBottom_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _rerenderPreviewUI: function () {
 
     },
 });

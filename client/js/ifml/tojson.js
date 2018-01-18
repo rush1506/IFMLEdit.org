@@ -81,6 +81,16 @@ function mapLayout(layout) {
     obj.attributes.default = layout.get('default');
     obj.attributes.landmark = layout.get('landmark');
     obj.attributes.xor = layout.get('xor');
+
+    obj.attributes.thisLeft_toRightOf = layout.get('thisLeft_toRightOf');
+    obj.attributes.thisLeft_toLeftOf = layout.get('thisLeft_toLeftOf');
+    obj.attributes.thisRight_toRightOf = layout.get('thisRight_toRightOf');
+    obj.attributes.thisRight_toLeftOf = layout.get('thisRight_toLeftOf');
+    obj.attributes.thisTop_toTopOf = layout.get('thisTop_toTopOf');
+    obj.attributes.thisTop_toBottomOf = layout.get('thisTop_toBottomOf');
+    obj.attributes.thisBottom_toBottomOf = layout.get('thisBottom_toBottomOf');
+    obj.attributes.thisBottom_toTopOf = layout.get('thisBottom_toTopOf');
+
     obj.metadata.graphics.size = layout.get('size');
     return obj;
 }

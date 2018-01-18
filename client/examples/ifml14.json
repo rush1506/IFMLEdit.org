@@ -9,7 +9,15 @@
 			"xor": false,
 			"width": "match_parent",
 			"height": "match_parent",
-			"orientation": "vertical"
+			"orientation": "vertical",
+			"thisLeft_toRightOf": "none",
+        	"thisLeft_toLeftOf": "none",
+        	"thisRight_toRightOf": "none",
+        	"thisRight_toLeftOf": "none",
+        	"thisTop_toTopOf": "none",
+        	"thisTop_toBottomOf": "none",
+        	"thisBottom_toBottomOf": "none",
+        	"thisBottom_toTopOf": "none"
 		},
 		"metadata": {
 			"graphics": {
