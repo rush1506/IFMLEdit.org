@@ -17,7 +17,9 @@
         	"thisTop_toTopOf": "none",
         	"thisTop_toBottomOf": "none",
         	"thisBottom_toBottomOf": "none",
-        	"thisBottom_toTopOf": "none"
+			"thisBottom_toTopOf": "none",
+			"gravity": "top",
+			"visibility": "visibile"
 		},
 		"metadata": {
 			"graphics": {

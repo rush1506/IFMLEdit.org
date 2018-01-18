@@ -32,6 +32,8 @@ exports.Layout = joint.shapes.basic.Generic.extend({
         thisTop_toBottomOf: 'none',
         thisBottom_toBottomOf: 'none',
         thisBottom_toTopOf: 'none',
+        visibility: 'visible',
+        gravity: 'top',
         attrs: {
             '.': {marker: 'passive'},
             '.ifml-layout-reference-rect': { 'follow-scale': 'auto' },
@@ -84,8 +86,13 @@ exports.Layout = joint.shapes.basic.Generic.extend({
         this.on('change:thisTop_toBottomOf', this._thisTop_toBottomOfChanged, this);
         this.on('change:thisBottom_toTopOf', this._thisBottom_toTopOfChanged, this);
 
+        this.on('change:visibility', this._visibilityChanged, this);
+        this.on('change:gravity', this._gravityChanged, this);
+
         this.on('change:height', this._heightChanged, this);
         this.on('change:orientation', this._orientationChanged, this);
+
+        this.on('change:styles', this._stylesChanged, this);
 
         joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         this._sizeChanged();
@@ -134,6 +141,10 @@ exports.Layout = joint.shapes.basic.Generic.extend({
             }
             editables = editables.concat(
                 {property: 'embeds', name: 'Children', type: 'elementslist', filter: filter, display: display}
+            );
+            editables = editables.concat(
+                {property: 'visibility', name: 'Visibility', type: 'string'},
+                {property: 'gravity', name: 'Gravity', type: 'string'},
             );
             if (this.get('parent')) {
                 editables = editables.concat(
@@ -311,6 +322,50 @@ exports.Layout = joint.shapes.basic.Generic.extend({
     },
 
     _thisBottom_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _stylesChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _visibilityChanged: function () {
+        var value = this.get('visibility');
+        switch(value) {
+            case "visible":
+                break;
+            case "hidden":
+                break;
+            case "collapse":
+                break;
+            case "initial":
+                break;  
+            case "inherit":
+                break;   
+            default:
+                return;
+        }
+        _rerenderPreviewUI();
+    },
+
+    _gravityChanged: function () {
+        var value = this.get('gravity');
+        switch(value) {
+            case "top":
+                break;
+            case "left":
+                break;
+            case "center":
+                break;
+            case "right":
+                break;  
+            case "bottom":
+                break;   
+            case "justify":
+                break;  
+            default:
+                return;
+        }
         _rerenderPreviewUI();
     },
 

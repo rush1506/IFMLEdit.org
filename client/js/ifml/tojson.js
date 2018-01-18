@@ -90,6 +90,8 @@ function mapLayout(layout) {
     obj.attributes.thisTop_toBottomOf = layout.get('thisTop_toBottomOf');
     obj.attributes.thisBottom_toBottomOf = layout.get('thisBottom_toBottomOf');
     obj.attributes.thisBottom_toTopOf = layout.get('thisBottom_toTopOf');
+    obj.attributes.visibility = layout.get('visibility');
+    obj.attributes.gravity = layout.get('gravity');
 
     obj.metadata.graphics.size = layout.get('size');
     return obj;

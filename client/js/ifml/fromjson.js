@@ -36,6 +36,8 @@ function mapLayout(container) {
         thisTop_toBottomOf: container.attributes.thisTop_toBottomOf,
         thisBottom_toBottomOf: container.attributes.thisBottom_toBottomOf,
         thisBottom_toTopOf: container.attributes.thisBottom_toTopOf,
+        visibility: container.attributes.visibility,
+        gravity: container.attributes.gravity,
     });
 }
 
