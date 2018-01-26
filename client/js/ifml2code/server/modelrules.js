@@ -39,7 +39,7 @@ exports.rules = [
                     .map(function (page) { return {href: page.attributes.default ? '' : page.id, name: page.attributes.name}; })
                     .value(),
                 collections = _.chain(model.elements)
-                    .filter(function (e) { return model.isViewComponent(e) || model.isLayout(e); })
+                    .filter(function (e) { return model.isViewComponent(e)})
                     .reject({attributes: {stereotype: 'form'}})
                     .map(function (c) {
                         if (c.attributes.collection) {
