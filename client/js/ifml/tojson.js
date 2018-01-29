@@ -68,6 +68,19 @@ function mapViewContainer(container) {
     obj.attributes.default = container.get('default');
     obj.attributes.landmark = container.get('landmark');
     obj.attributes.xor = container.get('xor');
+
+    obj.attributes.thisLeft_toRightOf = container.get('thisLeft_toRightOf');
+    obj.attributes.thisLeft_toLeftOf = container.get('thisLeft_toLeftOf');
+    obj.attributes.thisRight_toRightOf = container.get('thisRight_toRightOf');
+    obj.attributes.thisRight_toLeftOf = container.get('thisRight_toLeftOf');
+    obj.attributes.thisTop_toTopOf = container.get('thisTop_toTopOf');
+    obj.attributes.thisTop_toBottomOf = container.get('thisTop_toBottomOf');
+    obj.attributes.thisBottom_toBottomOf = container.get('thisBottom_toBottomOf');
+    obj.attributes.thisBottom_toTopOf = container.get('thisBottom_toTopOf');
+    obj.attributes.visibility = container.get('visibility');
+    obj.attributes.gravity = container.get('gravity');
+    obj.attributes.className = container.get('className');
+
     obj.metadata.graphics.size = container.get('size');
     return obj;
 }

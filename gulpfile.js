@@ -178,47 +178,47 @@ gulp.task('demo-web-server-index', function () {
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('demo-web-client-html', function () {
-    return gulp.src('./client/demo-web-client/index.jade')
-        .pipe(jade({
-            locals: {base_path: base_path},
-            pretty: !production
-        }))
-        .pipe(gulp.dest('./public/web-client'));
-});
+// gulp.task('demo-web-client-html', function () {
+//     return gulp.src('./client/demo-web-client/index.jade')
+//         .pipe(jade({
+//             locals: {base_path: base_path},
+//             pretty: !production
+//         }))
+//         .pipe(gulp.dest('./public/web-client'));
+// });
 
-gulp.task('demo-mobile-html', function () {
-    return gulp.src('./client/demo-mobile/index.jade')
-        .pipe(jade({
-            locals: {base_path: base_path},
-            pretty: !production
-        }))
-        .pipe(gulp.dest('./public/mobile'));
-});
+// gulp.task('demo-mobile-html', function () {
+//     return gulp.src('./client/demo-mobile/index.jade')
+//         .pipe(jade({
+//             locals: {base_path: base_path},
+//             pretty: !production
+//         }))
+//         .pipe(gulp.dest('./public/mobile'));
+// });
 
 gulp.task('demo-web-server-css', function () {
     return gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css').pipe(gulp.dest('./public/web-server/css'));
 });
 
-gulp.task('demo-web-client-css', function () {
-    return gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css').pipe(gulp.dest('./public/web-client/css'));
-});
+// gulp.task('demo-web-client-css', function () {
+//     return gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css').pipe(gulp.dest('./public/web-client/css'));
+// });
 
-gulp.task('demo-mobile-css', function () {
-    return merge(
-        gulp.src('./node_modules/materialize-css/dist/css/materialize.min.css').pipe(gulp.dest('./public/mobile/css')),
-        gulp.src('./node_modules/material-design-icons-iconfont/dist/material-design-icons.css')
-                .pipe(minifyCss({compatibility: 'ie8'}))
-                .pipe(rename({suffix: '.min'}))
-                .pipe(gulp.dest('./public/mobile/css')),
-        gulp.src('./node_modules/materialize-css/dist/fonts/roboto/*').pipe(gulp.dest('./public/mobile/fonts/roboto')),
-        gulp.src('./node_modules/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.*').pipe(gulp.dest('./public/mobile/css/fonts'))
-    );
-});
+// gulp.task('demo-mobile-css', function () {
+//     return merge(
+//         gulp.src('./node_modules/materialize-css/dist/css/materialize.min.css').pipe(gulp.dest('./public/mobile/css')),
+//         gulp.src('./node_modules/material-design-icons-iconfont/dist/material-design-icons.css')
+//                 .pipe(minifyCss({compatibility: 'ie8'}))
+//                 .pipe(rename({suffix: '.min'}))
+//                 .pipe(gulp.dest('./public/mobile/css')),
+//         gulp.src('./node_modules/materialize-css/dist/fonts/roboto/*').pipe(gulp.dest('./public/mobile/fonts/roboto')),
+//         gulp.src('./node_modules/material-design-icons-iconfont/dist/fonts/MaterialIcons-Regular.*').pipe(gulp.dest('./public/mobile/css/fonts'))
+//     );
+// });
 
-gulp.task('demo-mobile-images', function () {
-    return gulp.src('./client/demo-mobile/img/*').pipe(gulp.dest('./public/mobile/img'));
-});
+// gulp.task('demo-mobile-images', function () {
+//     return gulp.src('./client/demo-mobile/img/*').pipe(gulp.dest('./public/mobile/img'));
+// });
 
 gulp.task('demo-web-server-js', function () {
     return gulp.src([
@@ -227,92 +227,92 @@ gulp.task('demo-web-server-js', function () {
     ]).pipe(gulp.dest('./public/web-server/js'));
 });
 
-gulp.task('demo-web-client-js', function () {
-    return merge(
-        gulp.src([
-            './node_modules/bootstrap/dist/js/bootstrap.min.js',
-            './node_modules/bootstrap-notify/bootstrap-notify.min.js',
-            './node_modules/jquery/dist/jquery.min.js',
-            './node_modules/nedb/browser-version/out/nedb.min.js',
-            './node_modules/bluebird/js/browser/bluebird.min.js'
-        ]).pipe(gulp.dest('./public/web-client/js')),
-        gulp.src('./node_modules/knockout/build/output/knockout-latest.js')
-            .pipe(rename('knockout.min.js'))
-            .pipe(gulp.dest('./public/web-client/js'))
-    );
-});
+// gulp.task('demo-web-client-js', function () {
+//     return merge(
+//         gulp.src([
+//             './node_modules/bootstrap/dist/js/bootstrap.min.js',
+//             './node_modules/bootstrap-notify/bootstrap-notify.min.js',
+//             './node_modules/jquery/dist/jquery.min.js',
+//             './node_modules/nedb/browser-version/out/nedb.min.js',
+//             './node_modules/bluebird/js/browser/bluebird.min.js'
+//         ]).pipe(gulp.dest('./public/web-client/js')),
+//         gulp.src('./node_modules/knockout/build/output/knockout-latest.js')
+//             .pipe(rename('knockout.min.js'))
+//             .pipe(gulp.dest('./public/web-client/js'))
+//     );
+// });
 
-gulp.task('demo-mobile-js', function () {
-    return merge(
-        gulp.src([
-            './node_modules/materialize-css/dist/js/materialize.min.js',
-            './node_modules/jquery/dist/jquery.min.js',
-            './node_modules/nedb/browser-version/out/nedb.min.js',
-            './node_modules/bluebird/js/browser/bluebird.min.js'
-        ]).pipe(gulp.dest('./public/mobile/js')),
-        gulp.src('./node_modules/knockout/build/output/knockout-latest.js')
-            .pipe(rename('knockout.min.js'))
-            .pipe(gulp.dest('./public/mobile/js'))
-    );
-});
+// gulp.task('demo-mobile-js', function () {
+//     return merge(
+//         gulp.src([
+//             './node_modules/materialize-css/dist/js/materialize.min.js',
+//             './node_modules/jquery/dist/jquery.min.js',
+//             './node_modules/nedb/browser-version/out/nedb.min.js',
+//             './node_modules/bluebird/js/browser/bluebird.min.js'
+//         ]).pipe(gulp.dest('./public/mobile/js')),
+//         gulp.src('./node_modules/knockout/build/output/knockout-latest.js')
+//             .pipe(rename('knockout.min.js'))
+//             .pipe(gulp.dest('./public/mobile/js'))
+//     );
+// });
 
-gulp.task('demo-web-client-index', function () {
-    return browserify({
-        entries: './client/demo-web-client/index.js',
-        debug: !production,
-    })
-        .transform('exposify', {
-            expose: {
-                'jquery': '$',
-                'window': 'window',
-                'document': 'document',
-                'knockout': 'ko',
-                'nedb': 'Nedb',
-                'bluebird': 'Promise'
-            }
-        })
-        .bundle()
-        .pipe(source('index.js'))
-        .pipe(buffer())
-        .pipe(gulpif(!production, extractor({
-            basedir: path.join(__dirname, './client/js/'),
-            fakeFix: true
-        })))
-        .pipe(gulpif(production, minifyjs()))
-        .pipe(gulp.dest('./public/web-client/js'));
-});
+// gulp.task('demo-web-client-index', function () {
+//     return browserify({
+//         entries: './client/demo-web-client/index.js',
+//         debug: !production,
+//     })
+//         .transform('exposify', {
+//             expose: {
+//                 'jquery': '$',
+//                 'window': 'window',
+//                 'document': 'document',
+//                 'knockout': 'ko',
+//                 'nedb': 'Nedb',
+//                 'bluebird': 'Promise'
+//             }
+//         })
+//         .bundle()
+//         .pipe(source('index.js'))
+//         .pipe(buffer())
+//         .pipe(gulpif(!production, extractor({
+//             basedir: path.join(__dirname, './client/js/'),
+//             fakeFix: true
+//         })))
+//         .pipe(gulpif(production, minifyjs()))
+//         .pipe(gulp.dest('./public/web-client/js'));
+// });
 
-gulp.task('demo-mobile-index', function () {
-    return browserify({
-        entries: './client/demo-mobile/index.js',
-        debug: !production,
-    })
-        .transform('exposify', {
-            expose: {
-                'jquery': '$',
-                'window': 'window',
-                'document': 'document',
-                'knockout': 'ko',
-                'nedb': 'Nedb',
-                'bluebird': 'Promise'
-            }
-        })
-        .bundle()
-        .pipe(source('index.js'))
-        .pipe(buffer())
-        .pipe(gulpif(!production, extractor({
-            basedir: path.join(__dirname, './client/js/'),
-            fakeFix: true
-        })))
-        .pipe(gulpif(production, minifyjs()))
-        .pipe(gulp.dest('./public/mobile/js'));
-});
+// gulp.task('demo-mobile-index', function () {
+//     return browserify({
+//         entries: './client/demo-mobile/index.js',
+//         debug: !production,
+//     })
+//         .transform('exposify', {
+//             expose: {
+//                 'jquery': '$',
+//                 'window': 'window',
+//                 'document': 'document',
+//                 'knockout': 'ko',
+//                 'nedb': 'Nedb',
+//                 'bluebird': 'Promise'
+//             }
+//         })
+//         .bundle()
+//         .pipe(source('index.js'))
+//         .pipe(buffer())
+//         .pipe(gulpif(!production, extractor({
+//             basedir: path.join(__dirname, './client/js/'),
+//             fakeFix: true
+//         })))
+//         .pipe(gulpif(production, minifyjs()))
+//         .pipe(gulp.dest('./public/mobile/js'));
+// });
 
 gulp.task('demo-web-server', ['demo-web-server-index', 'demo-web-server-css', 'demo-web-server-js']);
-gulp.task('demo-web-client', ['demo-web-client-index', 'demo-web-client-html', 'demo-web-client-css', 'demo-web-client-js']);
-gulp.task('demo-mobile', ['demo-mobile-index', 'demo-mobile-html', 'demo-mobile-css', 'demo-mobile-images', 'demo-mobile-js']);
+// gulp.task('demo-web-client', ['demo-web-client-index', 'demo-web-client-html', 'demo-web-client-css', 'demo-web-client-js']);
+// gulp.task('demo-mobile', ['demo-mobile-index', 'demo-mobile-html', 'demo-mobile-css', 'demo-mobile-images', 'demo-mobile-js']);
 
-gulp.task('build', ['html', 'index', 'demo-web-server', 'demo-web-client', 'demo-mobile', 'vendor', 'sass', 'images', 'favicon', 'examples']);
+gulp.task('build', ['html', 'index', 'demo-web-server', 'vendor', 'sass', 'images', 'favicon', 'examples']);
 
 gulp.task('default', ['clean'], function () {
     return gulp.start('build');

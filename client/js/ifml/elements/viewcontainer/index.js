@@ -17,10 +17,24 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
     defaults: joint.util.deepSupplement({
         type: 'ifml.ViewContainer',
         size: {width: 200, height: 160},
-        name: 'View Container',
+        name: 'Layout',
         'default': false,
         landmark: false,
         xor: false,
+        className: "none",
+        width: 'match_parent',
+        height: 'match_parent',
+        orientation: 'vertical',
+        thisLeft_toRightOf: 'none',
+        thisLeft_toLeftOf: 'none',
+        thisRight_toRightOf: 'none',
+        thisRight_toLeftOf: 'none',
+        thisTop_toTopOf: 'none',
+        thisTop_toBottomOf: 'none',
+        thisBottom_toBottomOf: 'none',
+        thisBottom_toTopOf: 'none',
+        visibility: 'visible',
+        gravity: 'top',
         attrs: {
             '.': {marker: 'passive'},
             '.ifml-viewcontainer-reference-rect': { 'follow-scale': 'auto' },
@@ -64,6 +78,25 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         this.on('change:parent', this._parentChanged, this);
         this.on('change:accent', this._accentChanged, this);
 
+        this.on('change:width', this._widthChanged, this);
+
+        this.on('change:thisLeft_toRightOf', this._thisLeft_toRightOfChanged, this);
+        this.on('change:thisLeft_toLeftOf', this._thisLeft_toLeftOfChanged, this);
+        this.on('change:thisRight_toRightOf', this._thisRight_toRightOfChanged, this);
+        this.on('change:thisRight_toLeftOf', this._thisRight_toLeftOfChanged, this);
+        this.on('change:thisTop_toTopOf', this._thisTop_toTopOfChanged, this);
+        this.on('change:thisTop_toBottomOf', this._thisTop_toBottomOfChanged, this);
+        this.on('change:thisBottom_toTopOf', this._thisBottom_toTopOfChanged, this);
+
+        this.on('change:visibility', this._visibilityChanged, this);
+        this.on('change:gravity', this._gravityChanged, this);
+
+        this.on('change:height', this._heightChanged, this);
+        this.on('change:orientation', this._orientationChanged, this);
+
+        this.on('change:styles', this._stylesChanged, this);
+        this.on('change:className', this._classNameChanged, this);
+
         joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         this._sizeChanged();
         this._nameChanged();
@@ -90,7 +123,10 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
                     return graph.getCell(id).get('name');
                 }
             },
-            editables = _.chain([{property: 'name', name: 'Name', type: 'string'}]);
+            editables = _.chain([
+                {property: 'name', name: 'Name', type: 'string'},
+                {property: 'orientation', name: 'Orientation', type: 'string'},
+                {property: 'className', name: 'Class Name', type: 'string'}]);
         if (graph) {
             if (this.get('parent') && !this.graph.getCell(this.get('parent')).get('xor')) {
                 editables = editables.concat(
@@ -109,6 +145,23 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
             editables = editables.concat(
                 {property: 'embeds', name: 'Children', type: 'elementslist', filter: filter, display: display}
             );
+            editables = editables.concat(
+                {property: 'visibility', name: 'Visibility', type: 'string'},
+                {property: 'gravity', name: 'Gravity', type: 'string'},
+            );
+            if (this.get('parent')) {
+                editables = editables.concat(
+                    {property: 'width', name: 'Width', type: 'string'}, 
+                    {property: 'height', name: 'Height', type: 'string'},
+                    {property: 'thisLeft_toRightOf', name: 'thisLeft_toRightOf', type: 'string'},
+                    {property: 'thisLeft_toLeftOf', name: 'thisLeft_toLeftOf', type: 'string'},
+                    {property: 'thisRight_toRightOf', name: 'thisRight_toRightOf', type: 'string'},
+                    {property: 'thisRight_toLeftOf', name: 'thisRight_toLeftOf', type: 'string'},
+                    {property: 'thisTop_toTopOf', name: 'thisTop_toTopOf', type: 'string'},
+                    {property: 'thisTop_toBottomOf', name: 'thisTop_toBottomOf', type: 'string'},
+                    {property: 'thisBottom_toTopOf', name: 'thisBottom_toTopOf', type: 'string'}
+                );
+            }
         }
         return editables.value();
     },
@@ -233,5 +286,98 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
                 fill: fill
             }
         });
+    },
+
+    
+    _widthChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _heightChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _orientationChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _thisLeft_toRightOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisLeft_toLeftOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisRight_toRightOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisRight_toLeftOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisTop_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisTop_toBottomOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisBottom_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _stylesChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _visibilityChanged: function () {
+        var value = this.get('visibility');
+        switch(value) {
+            case "visible":
+                break;
+            case "hidden":
+                break;
+            case "collapse":
+                break;
+            case "initial":
+                break;  
+            case "inherit":
+                break;   
+            default:
+                return;
+        }
+        _rerenderPreviewUI();
+    },
+
+    _gravityChanged: function () {
+        var value = this.get('gravity');
+        switch(value) {
+            case "top":
+                break;
+            case "left":
+                break;
+            case "center":
+                break;
+            case "right":
+                break;  
+            case "bottom":
+                break;   
+            case "justify":
+                break;  
+            default:
+                return;
+        }
+        _rerenderPreviewUI();
+    },
+
+    _rerenderPreviewUI: function () {
+
+    },
+
+    _classNameChanged: function () {
+
     }
 });
