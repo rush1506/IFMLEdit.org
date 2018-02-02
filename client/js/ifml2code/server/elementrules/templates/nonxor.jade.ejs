@@ -1,6 +1,8 @@
 #<%= id %>.<%= className %>
+    .row
 <% for (var i = 0; i < children.length; ++i) { -%>
-    include ./<%= children[i] %>.jade
+        .col-auto
+            include ./<%= children[i] %>.jade
 <% } -%>
     .container
         .row
@@ -14,3 +16,8 @@
             a.col-xs-2.btn.btn-default(href=vm['<%= events[i].id %>'].href) <%= events[i].name %>
 <%    }
    } -%>
+
+Test:
+<% for (var i = 0; i < childrenAttributes.length; ++i) { -%>
+    - <%= childrenAttributes[i].attributes.className %>
+<% } -%>

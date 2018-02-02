@@ -49,6 +49,13 @@ exports.rules = [
                     .map(function (id) { return model.toElement(id); })
                     .map('id')
                     .value(),
+                childrenAttributes =  _.chain(model.getChildren(element))
+                    .reject(function (id) { return model.isEvent(id); })
+                    .map(function (id) { return model.toElement(id); })
+                    .map(function (element) {
+                        return element;
+                    })
+                    .value(),
                 events = _.chain(model.getChildren(element))
                     .filter(function (id) { return model.isEvent(id); })
                     .filter(function (id) { return model.getOutbounds(id).length; })
@@ -62,9 +69,10 @@ exports.rules = [
                 top = model.getTopLevelAncestor(element),
                 tid = top.id,
                 obj = {};
-            console.log("Non Xor", element);
+            console.log("Non xor master element", element);
+            console.log("Non xor children attribute", childrenAttributes);           
             obj[tid + '-view'] = {children: id + '-jade'};
-            obj[id + '-jade'] = {name: id + '.jade', content: require('./templates/nonxor.jade.ejs')({id: id, children: children, events: events, className: className})};
+            obj[id + '-jade'] = {name: id + '.jade', content: require('./templates/nonxor.jade.ejs')({id: id, children: children, events: events, className: className, childrenAttributes: childrenAttributes})};
             obj[tid + '-viewmodel'] = {children: id + '-view-js'};
             obj[id + '-view-js'] = {name: id + '.js', content: require('./templates/nonxor.js.ejs')({id: id, children: children, events: events})};
             return obj;
@@ -77,6 +85,13 @@ exports.rules = [
                 className = element.attributes.className,
                 children = _.chain(model.getChildren(element))
                     .filter(function (id) { return model.isViewContainer(id); })
+                    .value(),
+                childrenAttributes =  _.chain(model.getChildren(element))
+                    .reject(function (id) { return model.isEvent(id); })
+                    .map(function (id) { return model.toElement(id); })
+                    .map(function (element) {
+                        return element;
+                    })
                     .value(),
                 landmarks = _.chain(children)
                     .filter(function (element) { return model.isLandmark(element); })
@@ -109,9 +124,10 @@ exports.rules = [
                 tid = top.id,
                 path = model.isDefault(top) ? '' : tid,
                 obj = {};
-                console.log("Xor", element); 
+                console.log("Xor master element", element);
+                console.log("Xor children attribute", childrenAttributes);   
             obj[tid + '-view'] = {children: id + '-jade'};
-            obj[id + '-jade'] = {name: id + '.jade', content: require('./templates/xor.jade.ejs')({id: id, children: children, events: events, landmarks: landmarks, className: className})};
+            obj[id + '-jade'] = {name: id + '.jade', content: require('./templates/xor.jade.ejs')({id: id, children: children, events: events, landmarks: landmarks, className: className, childrenAttributes: childrenAttributes})};
             obj[tid + '-viewmodel'] = {children: id + '-view-js'};
             obj[id + '-view-js'] = {name: id + '.js', content: require('./templates/xor.js.ejs')({id: id, children: children, events: events, defaultChild: defaultChild, currentTopLevel: tid, landmarks: landmarks, path: path})};
             return obj;

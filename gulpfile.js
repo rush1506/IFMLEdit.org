@@ -317,3 +317,8 @@ gulp.task('build', ['html', 'index', 'demo-web-server', 'vendor', 'sass', 'image
 gulp.task('default', ['clean'], function () {
     return gulp.start('build');
 });
+
+gulp.task('watch', function() {
+    gulp.watch('./client/js/**/*.js', ['index']);
+    gulp.watch('./client/js/**/*.ejs', ['index']);
+});
