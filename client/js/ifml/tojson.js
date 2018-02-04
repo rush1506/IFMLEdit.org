@@ -69,6 +69,9 @@ function mapViewContainer(container) {
     obj.attributes.landmark = container.get('landmark');
     obj.attributes.xor = container.get('xor');
 
+    obj.attributes.width = container.get('width');
+    obj.attributes.height = container.get('height');
+
     obj.attributes.thisLeft_toRightOf = container.get('thisLeft_toRightOf');
     obj.attributes.thisLeft_toLeftOf = container.get('thisLeft_toLeftOf');
     obj.attributes.thisRight_toRightOf = container.get('thisRight_toRightOf');

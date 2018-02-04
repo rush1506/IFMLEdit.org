@@ -1,11 +1,12 @@
 #<%= id %>.<%= className %>
     .row
 <% for (var i = 0; i < children.length; ++i) { -%>
-        .col-auto
+        .col-auto(style="width:<%= childrenAttributes[i].attributes.width %>%;height:<%= childrenAttributes[i].attributes.height %>%;")
             include ./<%= children[i] %>.jade
 <% } -%>
     .container
         .row
+            p sbcsbcbsbj vfvd fvdfv d fv s
 <% for (var i = 0; i < events.length; ++i) {
       if (events[i].targetsAction) { -%>
             form(action=vm['<%= events[i].id %>'].action, method="POST")
@@ -16,8 +17,3 @@
             a.col-xs-2.btn.btn-default(href=vm['<%= events[i].id %>'].href) <%= events[i].name %>
 <%    }
    } -%>
-
-Test:
-<% for (var i = 0; i < childrenAttributes.length; ++i) { -%>
-    - <%= childrenAttributes[i].attributes.className %>
-<% } -%>
