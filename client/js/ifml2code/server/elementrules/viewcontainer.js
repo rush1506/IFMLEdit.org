@@ -52,7 +52,7 @@ function mapAttributeNode(map, data, i) {
     return map;
 }
 
-function mapthis(map, ref_id, tar_id, attrref, attrtar) {
+function mapthis(map, tar_id, ref_id, attrref, attrtar) {
 
     if (tar_id == "parent" || tar_id == "none") {
         //do nothing
@@ -64,8 +64,10 @@ function mapthis(map, ref_id, tar_id, attrref, attrtar) {
         return map;
     }
 
-    // console.log("Target id: ", tar_id);
-    // console.log("Referer id: ", ref_id);
+    console.log("Target id: ", tar_id);
+    console.log("Referer id: ", ref_id);
+    console.log("Target attr: ", attrtar);
+    console.log("Referer attr: ", attrref);
 
     var target_index = map.indexOf(map.filter((x) => {
         // console.log("x id: ", x.id);
@@ -76,8 +78,8 @@ function mapthis(map, ref_id, tar_id, attrref, attrtar) {
     //     return x.id == tar_id;
     // }));
 
-    // console.log("Target index: ", target_index);
-    // console.log("Target map: ", map[target_index]);
+    console.log("Target index: ", target_index);
+    console.log("Target map: ", map[target_index]);
 
     if (target_index != -1) {
 
@@ -85,6 +87,7 @@ function mapthis(map, ref_id, tar_id, attrref, attrtar) {
             return x == ref_id;
         })[0]);
 
+        console.log("Exist Att", existAttr);
         if (existAttr == -1) {
             if(map[target_index].attributes[attrtar][0] == 'none') {
                 map[target_index].attributes[attrtar][0] = ref_id;
