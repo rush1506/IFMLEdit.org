@@ -52,7 +52,7 @@ function mapAttributeNode(map, data, i) {
     return map;
 }
 
-function mapthis(map, ref_id, tar_id, attrtar, attrref) {
+function mapthis(map, ref_id, tar_id, attrref, attrtar) {
 
     if (tar_id == "parent" || tar_id == "none") {
         //do nothing
@@ -84,7 +84,7 @@ function mapthis(map, ref_id, tar_id, attrtar, attrref) {
             if(map[target_index].attributes[attrtar][0] == 'none') {
                 map[target_index].attributes[attrtar][0] = ref_id;
             } else {
-            map[target_index].attributes[attrtar].push(ref_id);
+                map[target_index].attributes[attrtar].push(ref_id);
             }
 
         }
