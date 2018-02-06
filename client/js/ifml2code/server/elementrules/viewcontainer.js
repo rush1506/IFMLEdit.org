@@ -52,7 +52,7 @@ function mapAttributeNode(map, data, i) {
     return map;
 }
 
-function mapthis(map, tar_id, ref_id, attrtar, attrref) {
+function mapthis(map, ref_id, tar_id, attrtar, attrref) {
 
     if (tar_id == "parent" || tar_id == "none") {
         //do nothing
