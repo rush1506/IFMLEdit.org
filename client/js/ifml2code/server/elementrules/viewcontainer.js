@@ -59,6 +59,11 @@ function mapthis(map, ref_id, tar_id, attrref, attrtar) {
         return map;
     }
 
+    if (ref_id == "parent" || ref_id == "none") {
+        //do nothing
+        return map;
+    }
+
     // console.log("Target id: ", tar_id);
     // console.log("Referer id: ", ref_id);
 
@@ -77,7 +82,7 @@ function mapthis(map, ref_id, tar_id, attrref, attrtar) {
     if (target_index != -1) {
 
         var existAttr = map[target_index].attributes[attrtar].indexOf(map[target_index].attributes[attrtar].filter((x) => {
-            return x.id == ref_id;
+            return x == ref_id;
         })[0]);
 
         if (existAttr == -1) {
