@@ -159,7 +159,8 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
                     {property: 'thisRight_toLeftOf', name: 'thisRight_toLeftOf', type: 'string'},
                     {property: 'thisTop_toTopOf', name: 'thisTop_toTopOf', type: 'string'},
                     {property: 'thisTop_toBottomOf', name: 'thisTop_toBottomOf', type: 'string'},
-                    {property: 'thisBottom_toTopOf', name: 'thisBottom_toTopOf', type: 'string'}
+                    {property: 'thisBottom_toTopOf', name: 'thisBottom_toTopOf', type: 'string'},
+                    {property: 'thisBottom_toBottomOf', name: 'thisBottom_toBottomOf', type: 'string'}
                 );
             }
         }
