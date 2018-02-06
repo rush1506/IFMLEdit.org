@@ -80,8 +80,9 @@ function mapthis(map, tar_id, ref_id, attrtar, attrref) {
             return x.id == ref_id;
         })[0]);
 
-        if (existAttr != -1) {
+        if (existAttr == -1) {
             map[target_index].attributes[attrtar].push(ref_id);
+
         }
 
     }
@@ -127,7 +128,7 @@ function findRoots(map, parentId) {
     console.log("Root parent id", parentId);
     root_arr = getRootId(root_arr, map, parentId, parentId);
     root_arr = getRootId(root_arr, map, 'none', parentId);
-    root_arr = getRootId(root_arr, map, 'none', 'none');
+    // root_arr = getRootId(root_arr, map, 'none', 'none');
     root_arr = getRootId(root_arr, map, parentId, 'none');
 
     return root_arr;
