@@ -81,7 +81,11 @@ function mapthis(map, tar_id, ref_id, attrtar, attrref) {
         })[0]);
 
         if (existAttr == -1) {
+            if(map[target_index].attributes[attrtar][0] == 'none') {
+                map[target_index].attributes[attrtar][0] = ref_id;
+            } else {
             map[target_index].attributes[attrtar].push(ref_id);
+            }
 
         }
 
