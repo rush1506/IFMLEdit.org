@@ -84,6 +84,30 @@ function mapViewContainer(container) {
     obj.attributes.gravity = container.get('gravity');
     obj.attributes.className = container.get('className');
 
+
+    obj.attributes.margin = container.get('margin');
+    obj.attributes.marginRight = container.get('marginRight');
+    obj.attributes.marginLeft = container.get('marginLeft');
+    obj.attributes.marginBottom = container.get('marginBottom');
+    obj.attributes.marginTop = container.get('marginTop');
+    obj.attributes.padding = container.get('padding');
+    obj.attributes.paddingTop = container.get('paddingTop');
+    obj.attributes.paddingBottom = container.get('paddingBottom');
+    obj.attributes.paddingRight = container.get('paddingRight');
+    obj.attributes.paddingLeft = container.get('paddingLeft');
+    obj.attributes.maxWidth = container.get('maxWidth');
+    obj.attributes.maxHeight = container.get('maxHeight');
+    obj.attributes.minWidth = container.get('minWidth');
+    obj.attributes.minHeight = container.get('minHeight');
+    obj.attributes.zIndex = container.get('zIndex');
+    obj.attributes.overflow = container.get('overflow');
+    obj.attributes.border = container.get('border');
+    obj.attributes.font = container.get('font');
+    obj.attributes.color = container.get('color');
+    obj.attributes.align = container.get('align');
+    obj.attributes.opacity = container.get('opacity');
+    obj.attributes.filter = container.get('filter');
+
     obj.metadata.graphics.size = container.get('size');
     return obj;
 }
