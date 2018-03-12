@@ -80,6 +80,7 @@ function mapViewContainer(container) {
     obj.attributes.thisTop_toBottomOf = container.get('thisTop_toBottomOf');
     obj.attributes.thisBottom_toBottomOf = container.get('thisBottom_toBottomOf');
     obj.attributes.thisBottom_toTopOf = container.get('thisBottom_toTopOf');
+
     obj.attributes.visibility = container.get('visibility');
     obj.attributes.gravity = container.get('gravity');
     obj.attributes.className = container.get('className');
@@ -109,31 +110,6 @@ function mapViewContainer(container) {
     obj.attributes.filter = container.get('filter');
 
     obj.metadata.graphics.size = container.get('size');
-    return obj;
-}
-
-function mapLayout(layout) {
-    var obj = mapElement(layout);
-    obj.attributes.name = layout.get('name');
-    obj.attributes.width = layout.get('width');
-    obj.attributes.height = layout.get('height');
-    obj.attributes.orientation = layout.get('orientation');
-    obj.attributes.default = layout.get('default');
-    obj.attributes.landmark = layout.get('landmark');
-    obj.attributes.xor = layout.get('xor');
-
-    obj.attributes.thisLeft_toRightOf = layout.get('thisLeft_toRightOf');
-    obj.attributes.thisLeft_toLeftOf = layout.get('thisLeft_toLeftOf');
-    obj.attributes.thisRight_toRightOf = layout.get('thisRight_toRightOf');
-    obj.attributes.thisRight_toLeftOf = layout.get('thisRight_toLeftOf');
-    obj.attributes.thisTop_toTopOf = layout.get('thisTop_toTopOf');
-    obj.attributes.thisTop_toBottomOf = layout.get('thisTop_toBottomOf');
-    obj.attributes.thisBottom_toBottomOf = layout.get('thisBottom_toBottomOf');
-    obj.attributes.thisBottom_toTopOf = layout.get('thisBottom_toTopOf');
-    obj.attributes.visibility = layout.get('visibility');
-    obj.attributes.gravity = layout.get('gravity');
-
-    obj.metadata.graphics.size = layout.get('size');
     return obj;
 }
 

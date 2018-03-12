@@ -150,6 +150,7 @@ function findRoots(map, parentId) {
     root_arr = getRootId(root_arr, map, 'none', parentId);
     // root_arr = getRootId(root_arr, map, 'none', 'none');
     root_arr = getRootId(root_arr, map, parentId, 'none');
+    root_arr = getSingleRootId(root_arr, map);
 
     return root_arr;
 
@@ -159,6 +160,24 @@ function getRootId(root_arr, map, cond1, cond2) {
     var tmp = map.filter((x) => {
         // console.log ("x ", x.attributes.thisLeft_toLeftOf[0], x.attributes.thisTop_toTopOf[0]);
         return (x.attributes.thisLeft_toLeftOf[0] == cond1) && (x.attributes.thisTop_toTopOf[0] == cond2)
+    }).map(x => x.id);
+    root_arr = root_arr.concat(tmp);
+    console.log('root arr', root_arr);
+
+    return root_arr;
+}
+
+function getSingleRootId(root_arr, map) {
+    var tmp = map.filter((x) => {
+        // console.log ("x ", x.attributes.thisLeft_toLeftOf[0], x.attributes.thisTop_toTopOf[0]);
+        return (x.attributes.thisLeft_toLeftOf[0] == 'none') &&
+         (x.attributes.thisTop_toTopOf[0] == 'none') &&
+         (x.attributes.thisTop_toBottomOf[0] == 'none') &&
+         (x.attributes.thisRight_toRightOf[0] == 'none') &&
+         (x.attributes.thisRight_toLeftOf[0] == 'none') &&
+         (x.attributes.thisLeft_toRightOf[0] == 'none') &&
+         (x.attributes.thisBottom_toTopOf[0] == 'none') &&
+         (x.attributes.thisBototm_toBottomOf[0] == 'none')
     }).map(x => x.id);
     root_arr = root_arr.concat(tmp);
     console.log('root arr', root_arr);
@@ -304,11 +323,13 @@ function sortMapByRow(map) {
                 sameRow.push(tempMap[i]);
                 tempMap.splice(i, 1);
                 i--;
+                break;
             }
         }
         rowMap.push(sameRow);
         sameRow = [];
         indexRow++;
+        break;``
     }
     return rowMap;
 }

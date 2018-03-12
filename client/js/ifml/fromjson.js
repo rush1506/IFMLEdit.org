@@ -18,6 +18,7 @@ function mapViewContainer(container) {
         width: container.attributes.width,
         height: container.attributes.height,
         orientation: container.attributes.orientation,
+
         thisLeft_toRightOf: container.attributes.thisLeft_toRightOf,
         thisLeft_toLeftOf: container.attributes.thisLeft_toLeftOf,
         thisRight_toRightOf: container.attributes.thisRight_toRightOf,
@@ -26,6 +27,7 @@ function mapViewContainer(container) {
         thisTop_toBottomOf: container.attributes.thisTop_toBottomOf,
         thisBottom_toBottomOf: container.attributes.thisBottom_toBottomOf,
         thisBottom_toTopOf: container.attributes.thisBottom_toTopOf,
+        
         visibility: container.attributes.visibility,
         gravity: container.attributes.gravity,
         className: container.attributes.className,
@@ -54,51 +56,6 @@ function mapViewContainer(container) {
     });
 }
 
-function mapLayout(container) {
-    return new ifml.elements.Layout({
-        id: container.id,
-        name: container.attributes.name,
-        'default': container.attributes.default,
-        landmark: container.attributes.landmark,
-        xor: container.attributes.xor,
-        width: container.attributes.width,
-        height: container.attributes.height,
-        orientation: container.attributes.orientation,
-        thisLeft_toRightOf: container.attributes.thisLeft_toRightOf,
-        thisLeft_toLeftOf: container.attributes.thisLeft_toLeftOf,
-        thisRight_toRightOf: container.attributes.thisRight_toRightOf,
-        thisRight_toLeftOf: container.attributes.thisRight_toLeftOf,
-        thisTop_toTopOf: container.attributes.thisTop_toTopOf,
-        thisTop_toBottomOf: container.attributes.thisTop_toBottomOf,
-        thisBottom_toBottomOf: container.attributes.thisBottom_toBottomOf,
-        thisBottom_toTopOf: container.attributes.thisBottom_toTopOf,
-        visibility: container.attributes.visibility,
-        gravity: container.attributes.gravity,
-
-        margin: container.attributes.margin,
-        marginRight: container.attributes.marginRight,
-        marginLeft: container.attributes.marginLeft,
-        marginBottom: container.attributes.marginBottom,
-        marginTop: container.attributes.marginTop,
-        padding: container.attributes.padding,
-        paddingTop: container.attributes.paddingTop,
-        paddingBottom: container.attributes.paddingBottom,
-        paddingRight: container.attributes.paddingRight,
-        paddingLeft: container.attributes.paddingLeft,
-        maxWidth: container.attributes.maxWidth,
-        maxHeight: container.attributes.maxHeight,
-        minWidth: container.attributes.minWidth,
-        minHeight: container.attributes.minHeight,
-        zIndex: container.attributes.zIndex,
-        overflow: container.attributes.overflow,
-        border: container.attributes.border,
-        font: container.attributes.font,
-        color: container.attributes.color,
-        align: container.attributes.align,
-        opacity: container.attributes.opacity,
-        filter: container.attributes.filter,
-    });
-}
 
 function applyViewContainerMetadata(container, cells) {
     var cell = cells[container.id];

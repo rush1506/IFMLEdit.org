@@ -17,7 +17,7 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
     defaults: joint.util.deepSupplement({
         type: 'ifml.ViewContainer',
         size: {width: 200, height: 160},
-        name: 'Layout',
+        name: 'View Container',
         'default': false,
         landmark: false,
         xor: false,
@@ -25,6 +25,7 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         width: 'match_parent',
         height: 'match_parent',
         orientation: 'vertical',
+
         thisLeft_toRightOf: 'none',
         thisLeft_toLeftOf: 'none',
         thisRight_toRightOf: 'none',
@@ -33,6 +34,7 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         thisTop_toBottomOf: 'none',
         thisBottom_toBottomOf: 'none',
         thisBottom_toTopOf: 'none',
+
         visibility: 'visible',
         gravity: 'top',
 
@@ -111,6 +113,7 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         this.on('change:thisTop_toTopOf', this._thisTop_toTopOfChanged, this);
         this.on('change:thisTop_toBottomOf', this._thisTop_toBottomOfChanged, this);
         this.on('change:thisBottom_toTopOf', this._thisBottom_toTopOfChanged, this);
+        this.on('change:thisBottom_toBottomOf', this._thisBottom_toTopOfChanged, this);
 
         this.on('change:visibility', this._visibilityChanged, this);
         this.on('change:gravity', this._gravityChanged, this);
