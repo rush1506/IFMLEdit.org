@@ -323,13 +323,11 @@ function sortMapByRow(map) {
                 sameRow.push(tempMap[i]);
                 tempMap.splice(i, 1);
                 i--;
-                break;
             }
         }
         rowMap.push(sameRow);
         sameRow = [];
         indexRow++;
-        break;``
     }
     return rowMap;
 }
@@ -390,7 +388,14 @@ exports.rules = [
                 .map('id')
                 .value(),
                 childrenAttributes = _.chain(model.getChildren(element))
-                .reject(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.isViewContainer(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(element) {
+                    return element;
+                })
+                .value(),
+                logicAttributes = _.chain(model.getChildren(element))
+                .filter(function(id) { return model.isViewComponent(id); })
                 .map(function(id) { return model.toElement(id); })
                 .map(function(element) {
                     return element;
@@ -411,6 +416,7 @@ exports.rules = [
                 obj = {};
             console.log("Non xor master element", element);
             console.log("Non xor children attribute", childrenAttributes);
+            console.log("Non xor logic attribute", logicAttributes);
 
             var map = [];
             console.log("Non xor maps", map);
@@ -436,7 +442,14 @@ exports.rules = [
                 .filter(function(id) { return model.isViewContainer(id); })
                 .value(),
                 childrenAttributes = _.chain(model.getChildren(element))
-                .reject(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.isViewContainer(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(element) {
+                    return element;
+                })
+                .value(),
+                logicAttributes = _.chain(model.getChildren(element))
+                .filter(function(id) { return model.isViewComponent(id); })
                 .map(function(id) { return model.toElement(id); })
                 .map(function(element) {
                     return element;
@@ -475,6 +488,7 @@ exports.rules = [
                 obj = {};
             console.log("Xor master element", element);
             console.log("Xor children attribute", childrenAttributes);
+            console.log("Xor logic attribute", logicAttributes);
 
             var map = [];
             map = getNodeMap(map, childrenAttributes, id);

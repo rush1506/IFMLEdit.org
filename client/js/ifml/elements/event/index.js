@@ -60,7 +60,7 @@ exports.Event = joint.shapes.basic.Generic.extend({
     }, joint.shapes.basic.Generic.prototype.defaults),
 
     requireEmbedding: true,
-    containers: ['ifml.ViewContainer', 'ifml.ViewComponent', 'ifml.Action', 'ifml.Layout'],
+    containers: ['ifml.ViewContainer', 'ifml.ViewComponent', 'ifml.Action'],
 
     editable: function () {
         return [

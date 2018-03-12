@@ -15,7 +15,7 @@ exports.NavigationFlow = Base.extend({
     }, Base.prototype.defaults),
 
     validSources: ['ifml.Event'],
-    validTargets: ['ifml.ViewComponent', 'ifml.ViewContainer', 'ifml.Action', 'ifml.Layout'],
+    validTargets: ['ifml.ViewComponent', 'ifml.ViewContainer', 'ifml.Action'],
     validateConnection: function (cellViewS, magnetS, cellViewT, magnetT, end, linkView) {
         _.noop(magnetS, magnetT);
         if (cellViewS === cellViewT) { return false; }

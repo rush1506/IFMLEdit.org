@@ -45,7 +45,7 @@ exports.rules = [
                         if (c.attributes.collection) {
                             return c.attributes.collection;
                         }
-                        throw new AException('Collection cannot be empty\n(ViewComponent/Layout id:' + c.id + ')');
+                        throw new AException('Collection cannot be empty\n(ViewComponent:' + c.id + ')');
                     })
                     .uniq()
                     .value();

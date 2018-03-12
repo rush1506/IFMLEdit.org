@@ -66,22 +66,21 @@ function applyViewContainerMetadata(container, cells) {
     }
 }
 
-function applyLayoutMetadata(container, cells) {
-    var cell = cells[container.id];
-    cell.set('position', container.metadata.graphics.position);
-    cell.set('size', container.metadata.graphics.size);
-    if (container.metadata.statistics) {
-        cell.set('statistics', container.metadata.statistics.slice());
-    }
-}
-
 function mapViewComponent(component) {
     var attributes = {
         id: component.id,
         name: component.attributes.name,
         stereotype: component.attributes.stereotype,
         position: component.metadata.graphics.position,
-        size: component.metadata.graphics.size
+        size: component.metadata.graphics.size,
+        thisLeft_toRightOf: component.attributes.thisLeft_toRightOf,
+        thisLeft_toLeftOf: component.attributes.thisLeft_toLeftOf,
+        thisRight_toRightOf: component.attributes.thisRight_toRightOf,
+        thisRight_toLeftOf: component.attributes.thisRight_toLeftOf,
+        thisTop_toTopOf: component.attributes.thisTop_toTopOf,
+        thisTop_toBottomOf: component.attributes.thisTop_toBottomOf,
+        thisBottom_toBottomOf: component.attributes.thisBottom_toBottomOf,
+        thisBottom_toTopOf: component.attributes.thisBottom_toTopOf,
     };
     switch (component.attributes.stereotype) {
     case 'details':
@@ -195,8 +194,6 @@ function mapElement(element) {
         return mapNavigationFlow(element);
     case 'ifml.DataFlow':
         return mapDataFlow(element);
-    case 'ifml.Layout':
-        return mapLayout(element);
     }
 }
 
@@ -204,8 +201,6 @@ function applyMetadata(element, cells) {
     switch (element.type) {
     case 'ifml.ViewContainer':
         return applyViewContainerMetadata(element, cells);
-    case 'ifml.Layout':
-        return applyLayoutMetadata(element, cells);
     case 'ifml.ViewComponent':
         return applyViewComponentMetadata(element, cells);
     case 'ifml.Event':

@@ -44,6 +44,14 @@ function mapViewComponent(component) {
     var obj = mapElement(component);
     obj.attributes.name = component.get('name');
     obj.attributes.stereotype = component.get('stereotype');
+    obj.attributes.thisLeft_toRightOf = component.get('thisLeft_toRightOf');
+    obj.attributes.thisLeft_toLeftOf = component.get('thisLeft_toLeftOf');
+    obj.attributes.thisRight_toRightOf = component.get('thisRight_toRightOf');
+    obj.attributes.thisRight_toLeftOf = component.get('thisRight_toLeftOf');
+    obj.attributes.thisTop_toTopOf = component.get('thisTop_toTopOf');
+    obj.attributes.thisTop_toBottomOf = component.get('thisTop_toBottomOf');
+    obj.attributes.thisBottom_toBottomOf = component.get('thisBottom_toBottomOf');
+    obj.attributes.thisBottom_toTopOf = component.get('thisBottom_toTopOf');
     switch (component.get('stereotype')) {
     case 'details':
         obj.attributes.collection = component.get('collection') || '';
@@ -139,8 +147,6 @@ function extractElements(cells) {
         switch (item.get('type')) {
         case 'ifml.ViewContainer':
             return mapViewContainer(item);
-        case 'ifml.Layout':
-            return mapLayout(item);
         case 'ifml.ViewComponent':
             return mapViewComponent(item);
         case 'ifml.Event':
@@ -160,7 +166,6 @@ function mapElementRelations(element) {
         .filter(function (cell) {
             switch (cell.get('type')) {
             case 'ifml.ViewContainer':
-            case 'ifml.Layout':
             case 'ifml.ViewComponent':
             case 'ifml.Event':
                 return true;
