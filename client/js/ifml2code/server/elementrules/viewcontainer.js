@@ -64,10 +64,10 @@ function mapthis(map, tar_id, ref_id, attrref, attrtar) {
         return map;
     }
 
-    console.log("Target id: ", tar_id);
-    console.log("Referer id: ", ref_id);
-    console.log("Target attr: ", attrtar);
-    console.log("Referer attr: ", attrref);
+    // console.log("Target id: ", tar_id);
+    // console.log("Referer id: ", ref_id);
+    // console.log("Target attr: ", attrtar);
+    // console.log("Referer attr: ", attrref);
 
     var target_index = map.indexOf(map.filter((x) => {
         // console.log("x id: ", x.id);
@@ -78,8 +78,8 @@ function mapthis(map, tar_id, ref_id, attrref, attrtar) {
     //     return x.id == tar_id;
     // }));
 
-    console.log("Target index: ", target_index);
-    console.log("Target map: ", map[target_index]);
+    // console.log("Target index: ", target_index);
+    // console.log("Target map: ", map[target_index]);
 
     if (target_index != -1) {
 
@@ -87,7 +87,7 @@ function mapthis(map, tar_id, ref_id, attrref, attrtar) {
             return x == ref_id;
         })[0]);
 
-        console.log("Exist Att", existAttr);
+        // console.log("Exist Att", existAttr);
         if (existAttr == -1) {
             if (map[target_index].attributes[attrtar][0] == 'none') {
                 map[target_index].attributes[attrtar][0] = ref_id;
@@ -171,13 +171,13 @@ function getSingleRootId(root_arr, map) {
     var tmp = map.filter((x) => {
         // console.log ("x ", x.attributes.thisLeft_toLeftOf[0], x.attributes.thisTop_toTopOf[0]);
         return (x.attributes.thisLeft_toLeftOf[0] == 'none') &&
-         (x.attributes.thisTop_toTopOf[0] == 'none') &&
-         (x.attributes.thisTop_toBottomOf[0] == 'none') &&
-         (x.attributes.thisRight_toRightOf[0] == 'none') &&
-         (x.attributes.thisRight_toLeftOf[0] == 'none') &&
-         (x.attributes.thisLeft_toRightOf[0] == 'none') &&
-         (x.attributes.thisBottom_toTopOf[0] == 'none') &&
-         (x.attributes.thisBototm_toBottomOf[0] == 'none')
+            (x.attributes.thisTop_toTopOf[0] == 'none') &&
+            (x.attributes.thisTop_toBottomOf[0] == 'none') &&
+            (x.attributes.thisRight_toRightOf[0] == 'none') &&
+            (x.attributes.thisRight_toLeftOf[0] == 'none') &&
+            (x.attributes.thisLeft_toRightOf[0] == 'none') &&
+            (x.attributes.thisBottom_toTopOf[0] == 'none') &&
+            (x.attributes.thisBottom_toBottomOf[0] == 'none')
     }).map(x => x.id);
     root_arr = root_arr.concat(tmp);
     console.log('root arr', root_arr);
@@ -301,13 +301,13 @@ function setDepth(map, index, col_level, row_level) {
 function getNodeMap(map, childrenAttributes, id) {
     // console.log("data", childrenAttributes);
     if (childrenAttributes.length > 0) {
-        console.log("Current Map", map);
+        // console.log("Current Map", map);
         map = mapLayoutNodeRelation(map, childrenAttributes);
-        console.log("Generate Node Relation Success!", map);
+        // console.log("Generate Node Relation Success!", map);
         var root_arr = findRoots(map, id);
-        console.log("Find Root Success!", root_arr);
+        // console.log("Find Root Success!", root_arr);
         map = getDepthLevel(map, root_arr);
-        console.log("Get Depth Level Success!", map);
+        // console.log("Get Depth Level Success!", map);
     }
     return map;
 }
@@ -344,6 +344,51 @@ function sortMap(map) {
     resMap = sortMapByRow(map);
     resMap = sortMapByCol(resMap);
     return resMap;
+}
+
+function getAbsoluteNode(map) {
+    var newData = Object.assign([], map);
+    for (var i = 0; i < map.length; i++) {
+        newData[i] = getAbsoluteNodeInRow(map, i);
+    }
+    return newData;
+}
+
+function getAbsoluteNodeInRow(map, index) {
+    var temp = [];
+    var tempChild = [];
+    var tempData = map[index][0];
+    // console.log('DUCANHAMAYYYYYYY', map, index, tempData);
+    for (var i = 0; i < map[index].length; i++) {
+        // console.log('DUCONMAYYYYYYY', tempChild);
+        if (map[index][i].col_depth === tempData.col_depth && map[index][i].row_depth === tempData.row_depth) {
+            tempChild.push(map[index][i]);
+            // console.log('DUMAMAYYYYYYY', tempChild);
+        } else {
+            // console.log('DUCHAMAYYYYYYY', tempChild);
+            var tempObj = {
+                type: 'normal',
+                elements: tempChild
+            }
+            if (tempChild.length > 1) {
+                tempObj.type = 'absolute';
+            }
+            temp.push(Object.assign({}, tempObj));
+            tempChild = [];
+            tempData = map[index][i];
+            tempChild.push(map[index][i]);
+        }
+    }
+    var tempObj2 = {
+        type: 'normal',
+        elements: tempChild
+    }
+    if (tempChild.length > 1) {
+        tempObj2.type = 'absolute';
+    }
+    temp.push(Object.assign({}, tempObj2));
+
+    return temp;
 }
 
 exports.rules = [
@@ -414,9 +459,9 @@ exports.rules = [
                 top = model.getTopLevelAncestor(element),
                 tid = top.id,
                 obj = {};
-            console.log("Non xor master element", element);
-            console.log("Non xor children attribute", childrenAttributes);
-            console.log("Non xor logic attribute", logicAttributes);
+            // console.log("Non xor master element", element);
+            // console.log("Non xor children attribute", childrenAttributes);
+            // console.log("Non xor logic attribute", logicAttributes);
 
             var map = [];
             console.log("Non xor maps", map);
@@ -424,10 +469,11 @@ exports.rules = [
 
             console.log("Non xor final maps", map);
             var sortedMap = sortMap(map);
-            console.log("SORTED MAP NON XOR", sortedMap);
+            var finalMap = getAbsoluteNode(sortedMap);
+            console.log("FINAL SORTED MAP NON XOR", finalMap);
 
             obj[tid + '-view'] = { children: id + '-jade' };
-            obj[id + '-jade'] = { name: id + '.jade', content: require('./templates/nonxor.jade.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: sortedMap }) };
+            obj[id + '-jade'] = { name: id + '.jade', content: require('./templates/nonxor.jade.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap }) };
             obj[tid + '-viewmodel'] = { children: id + '-view-js' };
             obj[id + '-view-js'] = { name: id + '.js', content: require('./templates/nonxor.js.ejs')({ id: id, children: children, events: events }) };
             return obj;
