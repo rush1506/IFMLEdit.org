@@ -22,8 +22,8 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         landmark: false,
         xor: false,
         className: "none",
-        width: 'match_parent',
-        height: 'match_parent',
+        width: '100%',
+        height: '100%',
         orientation: 'vertical',
 
         thisLeft_toRightOf: 'none',

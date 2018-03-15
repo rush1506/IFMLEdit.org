@@ -10,6 +10,7 @@ var _ = require('lodash'),
     createRule = almost.createRule,
     AException = almost.Exception;
 
+
 exports.rules = [
     createRule(
         Rule.always,
