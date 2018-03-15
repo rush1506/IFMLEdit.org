@@ -461,7 +461,7 @@ exports.rules = [
                 obj = {};
             // console.log("Non xor master element", element);
             // console.log("Non xor children attribute", childrenAttributes);
-            // console.log("Non xor logic attribute", logicAttributes);
+            console.log("Non xor logic attribute", logicAttributes);
 
             var map = [];
             console.log("Non xor maps", map);
@@ -473,7 +473,7 @@ exports.rules = [
             console.log("FINAL SORTED MAP NON XOR", finalMap);
 
             obj[tid + '-view'] = { children: id + '-jade' };
-            obj[id + '-jade'] = { name: id + '.jade', content: require('./templates/nonxor.jade.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap }) };
+            obj[id + '-jade'] = { name: id + '.jade', content: require('./templates/nonxor.jade.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes }) };
             obj[tid + '-viewmodel'] = { children: id + '-view-js' };
             obj[id + '-view-js'] = { name: id + '.js', content: require('./templates/nonxor.js.ejs')({ id: id, children: children, events: events }) };
             return obj;
