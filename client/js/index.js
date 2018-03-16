@@ -39,12 +39,12 @@ var ifmlModel = new joint.dia.Graph(),
         model: ifmlModel,
         defaultLink: defaultLink
     }),
-    ifmlMenu = createElementsMenu({
+    ifmlMenu = ifmlBoard.createElementsMenu({
         container: '#ifml > .sidebar > ul',
         template: '<a class="list-group-item almost-place-holder"></a>',
         builders: ifmlBuilders,
-        createItemDragger: ifmlBoard.createItemDragger,
-        width: 170
+        width: 170,
+        padding: 5
     }),
     statisticsModel = new joint.dia.Graph(),
     statisticsBoard = createBoard({
@@ -92,12 +92,12 @@ var ifmlModel = new joint.dia.Graph(),
         model: pcnModel,
         defaultLink: defaultLink,
     }),
-    pcnMenu = createElementsMenu({
+    pcnMenu = pcnBoard.createElementsMenu({
         container: '#pcn > .sidebar > ul',
         template: '<a class="list-group-item almost-place-holder"></a>',
         builders: pcnBuilders,
-        createItemDragger: pcnBoard.createItemDragger,
-        width: 170
+        width: 170,
+        padding: 5
     }),
     pcnSimulator = pcn.Simulator({model: pcnModel, paper: pcnBoard.paper()}),
     ifbrowser = createIFBrowser({
@@ -116,17 +116,21 @@ ifmlBoard.zoomE();
 statisticsBoard.zoomE();
 pcnBoard.zoomE();
 
-function editElement(cellView) {
-    createModalEdit({cell: cellView.model});
+function editIfmlElement(cellView) {
+    ifmlBoard.createModalEdit({cell: cellView.model});
+}
+
+function editPcnElement(cellView) {
+    pcnBoard.createModalEdit({cell: cellView.model});
 }
 
 function showElementStatistics(cellView) {
-    createModalStatistics({cell: cellView.model});
+    statisticsBoard.createModalStatistics({cell: cellView.model});
 }
 
-ifmlBoard.on('cell:edit cell:pointerdblclick link:options', editElement);
+ifmlBoard.on('cell:edit cell:pointerdblclick link:options', editIfmlElement);
 statisticsBoard.on('cell:statistics cell:pointerdblclick link:options', showElementStatistics);
-pcnBoard.on('cell:edit cell:pointerdblclick', editElement);
+pcnBoard.on('cell:edit cell:pointerdblclick', editPcnElement);
 
 var loaded_at = new Date();
 
@@ -152,13 +156,15 @@ $('#ifml > input[type=file]').change(function () {
 
     reader.onload = function (e) {
         ifmlModel.clear();
+        ifmlBoard.clearHistory();
         try {
             var start = new Date();
             ifmlModel.addCells(ifml.fromJSON(JSON.parse(e.target.result)));
+            ifmlBoard.clearHistory();
             $.notify({message: 'File loaded in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
             loaded_at = new Date();
         } catch (exception) {
-            ifmlModel.clear();
+            ifmlBoard.clearHistory();
             $.notify({message: 'Invalid input file!'}, {allow_dismiss: true, type: 'danger'});
             return;
         }
@@ -183,13 +189,16 @@ $('#ifml > .sidebar .modal-example').click(function () {
     createModalExamples({examples: examples, load: function (example) {
         $.getJSON(example.url, function (result) {
             ifmlModel.clear();
+            ifmlBoard.clearHistory();
             try {
                 var start = new Date();
                 ifmlModel.addCells(ifml.fromJSON(result));
+                ifmlBoard.clearHistory();
                 $.notify({message: 'File loaded in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
                 loaded_at = new Date();
             } catch (exception) {
                 ifmlModel.clear();
+                ifmlBoard.clearHistory();
                 $.notify({message: 'Invalid input file!'}, {allow_dismiss: true, type: 'danger'});
                 return;
             }
@@ -197,7 +206,7 @@ $('#ifml > .sidebar .modal-example').click(function () {
         });
     }});
     return false;
-});
+}).click();
 
 $('#statistics > input[type=file]').change(function () {
     var reader = new FileReader(),
