@@ -178,28 +178,9 @@ gulp.task('demo-web-server-index', function () {
         .pipe(gulp.dest('./public/js'));
 });
 
-<<<<<<< HEAD
-gulp.task('demo-web-client-html', function () {
-    return gulp.src('./client/demo-web-client/index.pug')
-        .pipe(pug({
-            locals: {base_path: base_path},
-            pretty: !production
-        }))
-        .pipe(gulp.dest('./public/web-client'));
-});
-
-gulp.task('demo-mobile-html', function () {
-    return gulp.src('./client/demo-mobile/index.pug')
-        .pipe(pug({
-            locals: {base_path: base_path},
-            pretty: !production
-        }))
-        .pipe(gulp.dest('./public/mobile'));
-});
-=======
 // gulp.task('demo-web-client-html', function () {
-//     return gulp.src('./client/demo-web-client/index.jade')
-//         .pipe(jade({
+//     return gulp.src('./client/demo-web-client/index.pug')
+//         .pipe(pug({
 //             locals: {base_path: base_path},
 //             pretty: !production
 //         }))
@@ -207,14 +188,13 @@ gulp.task('demo-mobile-html', function () {
 // });
 
 // gulp.task('demo-mobile-html', function () {
-//     return gulp.src('./client/demo-mobile/index.jade')
-//         .pipe(jade({
+//     return gulp.src('./client/demo-mobile/index.pug')
+//         .pipe(pug({
 //             locals: {base_path: base_path},
 //             pretty: !production
 //         }))
 //         .pipe(gulp.dest('./public/mobile'));
 // });
->>>>>>> Layout_test
 
 gulp.task('demo-web-server-css', function () {
     return gulp.src('./node_modules/bootstrap/dist/css/bootstrap.min.css').pipe(gulp.dest('./public/web-server/css'));
