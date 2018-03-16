@@ -94,6 +94,7 @@ function mapViewComponent(component) {
         break;
     case 'form':
         attributes.fields = (component.attributes.fields && component.attributes.fields.slice()) || [];
+        attributes.types = (component.attributes.types && component.attributes.types.slice()) || [];
         break;
     }
     return new ifml.elements.ViewComponent(attributes);
