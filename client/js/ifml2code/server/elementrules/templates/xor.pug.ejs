@@ -1,12 +1,15 @@
-#<%= id %>
+#<%= id %>.<%= className %>
     .container
         .row
 <% for (var i = 0; i < landmarks.length; ++i) { -%>
             a.col-xs-2.btn.btn-default(href=vm['<%= id %>'].landmarks['<%= landmarks[i].id %>'].href) <%= landmarks[i].name %>
 <% } -%>
+
+        .row
 <% for (var i = 0; i < children.length; ++i) { -%>
     if vm['<%= id %>'].active === '<%= children[i] %>'
-        include ./<%= children[i] %>.pug
+            .col-auto
+                include ./<%= children[i] %>.pug
 <% } -%>
     .container
         .row

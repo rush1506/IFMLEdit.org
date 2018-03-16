@@ -56,7 +56,7 @@ exports.Action = joint.shapes.basic.Generic.extend({
     isContraint: true,
     requireEmbedding: false,
     fullyContained: true,
-    containers: ['ifml.ViewContainer', 'ifml.Layout'],
+    containers: ['ifml.ViewContainer'],
 
     editable: function () {
         var graph = this.graph,

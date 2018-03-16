@@ -16,6 +16,7 @@ var _ = require('lodash'),
 exports.ifml2code = ifml2code;
 
 ifml2code.server = function (ifml) {
+    console.log(createModel(ifml));
     var transformed = server.transform(createModel(ifml));
     return compact(transformed);
 };

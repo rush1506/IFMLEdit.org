@@ -1,0 +1,18 @@
+<%  for (var i = 0; i < css.elements.length; i++) { %>
+#<%= css.elements[i].id %> {
+<% for (var attr in css.elements[i].attributes) { 
+    if ( attr.indexOf("name") < 0 &&
+            attr.indexOf("xor") < 0 &&  
+            attr.indexOf("landmark") < 0 && 
+            attr.indexOf("default") < 0 && 
+            attr.indexOf("class") < 0 && 
+            attr.indexOf("gravity") < 0 && 
+            attr.indexOf("this") < 0) { 
+            var tmp_attr = attr.replace(/\.?([A-Z])/g, function (x,y){return "-" + y.toLowerCase()}).replace(/^_/, ""); 
+            if (tmp_attr == "align") { 
+                tmp_attr = 'align-content'; 
+            } %> 
+    <%= tmp_attr %> : <%=  css.elements[i].attributes[attr] %>; <% }
+} %>
+}
+<%  } %>

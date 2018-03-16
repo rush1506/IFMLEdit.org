@@ -21,6 +21,46 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         'default': false,
         landmark: false,
         xor: false,
+        className: "none",
+        width: '100%',
+        height: '100%',
+        orientation: 'vertical',
+
+        thisLeft_toRightOf: 'none',
+        thisLeft_toLeftOf: 'none',
+        thisRight_toRightOf: 'none',
+        thisRight_toLeftOf: 'none',
+        thisTop_toTopOf: 'none',
+        thisTop_toBottomOf: 'none',
+        thisBottom_toBottomOf: 'none',
+        thisBottom_toTopOf: 'none',
+
+        visibility: 'visible',
+        gravity: 'top',
+
+        margin: 'initial',
+        marginRight: 'initial',
+        marginLeft: 'initial',
+        marginTop: 'initial',
+        marginBottom: 'initial',
+        padding: 'initial',
+        paddingLeft: 'initial',
+        paddingRight: 'initial',
+        paddingTop: 'initial',
+        paddingBottom:'initial',
+        maxWidth: 'initial',
+        maxHeight: 'initial',
+        minWidth: 'initial',
+        minHeight: 'initial',
+        zIndex: 0,
+        overflow: 'initial',
+        border: 'initial',
+        font: 'initial',
+        color: 'initial',
+        align: 'initial',
+        filter: 'none',  
+        opacity: 1,
+        
         attrs: {
             '.': {marker: 'passive'},
             '.ifml-viewcontainer-reference-rect': { 'follow-scale': 'auto' },
@@ -64,6 +104,53 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         this.on('change:parent', this._parentChanged, this);
         this.on('change:accent', this._accentChanged, this);
 
+        this.on('change:width', this._widthChanged, this);
+
+        this.on('change:thisLeft_toRightOf', this._thisLeft_toRightOfChanged, this);
+        this.on('change:thisLeft_toLeftOf', this._thisLeft_toLeftOfChanged, this);
+        this.on('change:thisRight_toRightOf', this._thisRight_toRightOfChanged, this);
+        this.on('change:thisRight_toLeftOf', this._thisRight_toLeftOfChanged, this);
+        this.on('change:thisTop_toTopOf', this._thisTop_toTopOfChanged, this);
+        this.on('change:thisTop_toBottomOf', this._thisTop_toBottomOfChanged, this);
+        this.on('change:thisBottom_toTopOf', this._thisBottom_toTopOfChanged, this);
+        this.on('change:thisBottom_toBottomOf', this._thisBottom_toTopOfChanged, this);
+
+        this.on('change:visibility', this._visibilityChanged, this);
+        this.on('change:gravity', this._gravityChanged, this);
+
+        this.on('change:height', this._heightChanged, this);
+        this.on('change:orientation', this._orientationChanged, this);
+
+        this.on('change:styles', this._stylesChanged, this);
+        this.on('change:className', this._classNameChanged, this);
+
+        this.on('change:margin', this._marginChanged, this);
+        this.on('change:marginRight', this._marginRightChanged, this);
+        this.on('change:marginLeft', this._marginLeftChanged, this);
+        this.on('change:marginBottom', this._marginBottomChanged, this);
+        this.on('change:marginTop', this._marginTopsChanged, this);
+        this.on('change:padding', this._paddingChanged, this);
+        this.on('change:paddingTop', this._paddingTopChanged, this);
+        this.on('change:paddingBottom', this._paddingBottomChanged, this);
+        this.on('change:paddingRight', this._paddingRightChanged, this);
+        this.on('change:paddingLeft', this._paddingLeftChanged, this);
+        this.on('change:maxWidth', this._maxWidthChanged, this);
+        this.on('change:maxHeight', this._maxHeightChanged, this);
+        this.on('change:minWidth', this._minWidthChanged, this);
+        this.on('change:minHeight', this._minHeightChanged, this);
+
+        this.on('change:zIndex', this._zIndexChanged, this);
+        this.on('change:overflow', this._overflowChanged, this);
+        this.on('change:border', this._borderChanged, this);
+        this.on('change:font', this._fontChanged, this);
+        this.on('change:color', this._colorChanged, this);
+        this.on('change:align', this._alignChanged, this);
+        this.on('change:opacity', this._opacityChanged, this);
+        this.on('change:filter', this._filterChanged, this);
+
+ 
+        
+        
         joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         this._sizeChanged();
         this._nameChanged();
@@ -90,7 +177,10 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
                     return graph.getCell(id).get('name');
                 }
             },
-            editables = _.chain([{property: 'name', name: 'Name', type: 'string'}]);
+            editables = _.chain([
+                {property: 'name', name: 'Name', type: 'string'},
+                {property: 'orientation', name: 'Orientation', type: 'string'},
+                {property: 'className', name: 'Class Name', type: 'string'}]);
         if (graph) {
             if (this.get('parent') && !this.graph.getCell(this.get('parent')).get('xor')) {
                 editables = editables.concat(
@@ -109,6 +199,46 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
             editables = editables.concat(
                 {property: 'embeds', name: 'Children', type: 'elementslist', filter: filter, display: display}
             );
+            editables = editables.concat(
+                {property: 'visibility', name: 'Visibility', type: 'string'},
+                {property: 'gravity', name: 'Gravity', type: 'string'},
+                {property: 'margin', name: 'Margin', type: 'string'}, 
+                {property: 'marginRight', name: 'MarginRight', type: 'string'},
+                {property: 'marginLeft', name: 'MarginLeft', type: 'string'},
+                {property: 'marginBottom', name: 'MarginBottom', type: 'string'},
+                {property: 'marginTop', name: 'MarginTop', type: 'string'},
+                {property: 'padding', name: 'Padding', type: 'string'},
+                {property: 'paddingTop', name: 'PaddingTop', type: 'string'},
+                {property: 'paddingBottom', name: 'PaddingBottom', type: 'string'},
+                {property: 'paddingRight', name: 'PaddingRight', type: 'string'},
+                {property: 'paddingLeft', name: 'PaddingLeft', type: 'string'},
+                {property: 'maxWidth', name: 'MaxWidth', type: 'string'}, 
+                {property: 'maxHeight', name: 'MaxHeight', type: 'string'},
+                {property: 'minWidth', name: 'MinWidth', type: 'string'},
+                {property: 'minHeight', name: 'MinHeight', type: 'string'},
+                {property: 'zIndex', name: 'zIndex', type: 'string'},
+                {property: 'overflow', name: 'Overflow', type: 'string'},
+                {property: 'border', name: 'Border', type: 'string'},
+                {property: 'font', name: 'Font', type: 'string'},
+                {property: 'color', name: 'Color', type: 'string'},
+                {property: 'align', name: 'Align', type: 'string'},
+                {property: 'opacity', name: 'Opacity', type: 'string'}, 
+                {property: 'filter', name: 'Filter', type: 'string'},
+            );
+            if (this.get('parent')) {
+                editables = editables.concat(
+                    {property: 'width', name: 'Width', type: 'string'}, 
+                    {property: 'height', name: 'Height', type: 'string'},
+                    {property: 'thisLeft_toRightOf', name: 'thisLeft_toRightOf', type: 'string'},
+                    {property: 'thisLeft_toLeftOf', name: 'thisLeft_toLeftOf', type: 'string'},
+                    {property: 'thisRight_toRightOf', name: 'thisRight_toRightOf', type: 'string'},
+                    {property: 'thisRight_toLeftOf', name: 'thisRight_toLeftOf', type: 'string'},
+                    {property: 'thisTop_toTopOf', name: 'thisTop_toTopOf', type: 'string'},
+                    {property: 'thisTop_toBottomOf', name: 'thisTop_toBottomOf', type: 'string'},
+                    {property: 'thisBottom_toTopOf', name: 'thisBottom_toTopOf', type: 'string'},
+                    {property: 'thisBottom_toBottomOf', name: 'thisBottom_toBottomOf', type: 'string'}
+                );
+            }
         }
         return editables.value();
     },
@@ -233,5 +363,188 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
                 fill: fill
             }
         });
+    },
+
+    
+    _widthChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _heightChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _orientationChanged: function () {
+        this._rerenderPreviewUI();
+    },
+
+    _thisLeft_toRightOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisLeft_toLeftOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisRight_toRightOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisRight_toLeftOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisTop_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisTop_toBottomOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _thisBottom_toTopOfChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _stylesChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _visibilityChanged: function () {
+        var value = this.get('visibility');
+        switch(value) {
+            case "visible":
+                break;
+            case "hidden":
+                break;
+            case "collapse":
+                break;
+            case "initial":
+                break;  
+            case "inherit":
+                break;   
+            default:
+                return;
+        }
+        _rerenderPreviewUI();
+    },
+
+    _gravityChanged: function () {
+        var value = this.get('gravity');
+        switch(value) {
+            case "top":
+                break;
+            case "left":
+                break;
+            case "center":
+                break;
+            case "right":
+                break;  
+            case "bottom":
+                break;   
+            case "justify":
+                break;  
+            default:
+                return;
+        }
+        _rerenderPreviewUI();
+    },
+
+    _marginChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _marginRightChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _marginLeftChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _marginBottomChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _marginTopsChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _paddingChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _paddingTopChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _paddingBottomChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _paddingRightChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+   _paddingLeftChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+   _maxWidthChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _maxHeightChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _minWidthChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _minHeightChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+
+    _zIndexChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _overflowChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _borderChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _fontChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _colorChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _alignChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _opacityChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+    _filterChanged: function () {
+        _rerenderPreviewUI();
+    },
+
+
+    _rerenderPreviewUI: function () {
+
+    },
+
+    _classNameChanged: function () {
+
     }
 });

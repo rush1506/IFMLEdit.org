@@ -10,6 +10,7 @@ var _ = require('lodash'),
     createRule = almost.createRule,
     AException = almost.Exception;
 
+
 exports.rules = [
     createRule(
         Rule.always,
@@ -45,13 +46,15 @@ exports.rules = [
                         if (c.attributes.collection) {
                             return c.attributes.collection;
                         }
-                        throw new AException('Collection cannot be empty\n(ViewComponent/Layout id:' + c.id + ')');
+                        throw new AException('Collection cannot be empty\n(ViewComponent:' + c.id + ')');
                     })
                     .uniq()
-                    .value();
+                    .value(),
+                css = model;
+                console.log("CSS: ", css);
             return {
                 '': {isFolder: true, children: 'webexample'},
-                'webexample' : { isFolder: true, name: 'webexample', children: ['gulp', 'package', 'index', 'routes', 'actions', 'views', 'viewmodels', 'repositories', 'gitignore']},
+                'webexample' : { isFolder: true, name: 'webexample', children: ['gulp', 'package', 'index', 'routes', 'actions', 'views', 'viewmodels', 'repositories', 'gitignore', 'css']},
                 'gulp': {name: 'gulpfile.js', content: require('./templates/gulpfile.js.ejs')()},
                 'gitignore': {name: '.gitignore', content: require('./templates/gitignore.ejs')()},
                 'index': {name: 'index.js', content: require('./templates/index.js.ejs')()},
@@ -61,6 +64,8 @@ exports.rules = [
                 'views': {isFolder: true, name: 'views', children: 'views-index'},
                 'viewmodels': {isFolder: true, name: 'viewmodels', children: 'viewmodels-index'},
                 'repositories': {isFolder: true, name: 'repositories', children: 'repositories-index'},
+                'css': {isFolder: true, name: 'css', children: 'css-style'},
+                'css-style': {name: 'style.css', content: require('./templates/css.style.css.ejs')({css: css})},
                 'routes-index': {name: 'index.js', content: require('./templates/routes.index.js.ejs')({routes: routes})},
                 'actions-index': {name: 'index.js', content: require('./templates/actions.index.js.ejs')({actions: actions})},
                 'views-index': {name: 'index.pug', content: require('./templates/views.index.pug.ejs')({landmarks: landmarks})},

@@ -14,20 +14,11 @@ function mapViewContainer(container) {
         name: container.attributes.name,
         'default': container.attributes.default,
         landmark: container.attributes.landmark,
-        xor: container.attributes.xor
-    });
-}
-
-function mapLayout(container) {
-    return new ifml.elements.Layout({
-        id: container.id,
-        name: container.attributes.name,
-        'default': container.attributes.default,
-        landmark: container.attributes.landmark,
         xor: container.attributes.xor,
         width: container.attributes.width,
         height: container.attributes.height,
         orientation: container.attributes.orientation,
+
         thisLeft_toRightOf: container.attributes.thisLeft_toRightOf,
         thisLeft_toLeftOf: container.attributes.thisLeft_toLeftOf,
         thisRight_toRightOf: container.attributes.thisRight_toRightOf,
@@ -36,21 +27,37 @@ function mapLayout(container) {
         thisTop_toBottomOf: container.attributes.thisTop_toBottomOf,
         thisBottom_toBottomOf: container.attributes.thisBottom_toBottomOf,
         thisBottom_toTopOf: container.attributes.thisBottom_toTopOf,
+        
         visibility: container.attributes.visibility,
         gravity: container.attributes.gravity,
+        className: container.attributes.className,
+        margin: container.attributes.margin,
+        marginRight: container.attributes.marginRight,
+        marginLeft: container.attributes.marginLeft,
+        marginBottom: container.attributes.marginBottom,
+        marginTop: container.attributes.marginTop,
+        padding: container.attributes.padding,
+        paddingTop: container.attributes.paddingTop,
+        paddingBottom: container.attributes.paddingBottom,
+        paddingRight: container.attributes.paddingRight,
+        paddingLeft: container.attributes.paddingLeft,
+        maxWidth: container.attributes.maxWidth,
+        maxHeight: container.attributes.maxHeight,
+        minWidth: container.attributes.minWidth,
+        minHeight: container.attributes.minHeight,
+        zIndex: container.attributes.zIndex,
+        overflow: container.attributes.overflow,
+        border: container.attributes.border,
+        font: container.attributes.font,
+        color: container.attributes.color,
+        align: container.attributes.align,
+        opacity: container.attributes.opacity,
+        filter: container.attributes.filter,
     });
 }
 
-function applyViewContainerMetadata(container, cells) {
-    var cell = cells[container.id];
-    cell.set('position', container.metadata.graphics.position);
-    cell.set('size', container.metadata.graphics.size);
-    if (container.metadata.statistics) {
-        cell.set('statistics', container.metadata.statistics.slice());
-    }
-}
 
-function applyLayoutMetadata(container, cells) {
+function applyViewContainerMetadata(container, cells) {
     var cell = cells[container.id];
     cell.set('position', container.metadata.graphics.position);
     cell.set('size', container.metadata.graphics.size);
@@ -65,7 +72,15 @@ function mapViewComponent(component) {
         name: component.attributes.name,
         stereotype: component.attributes.stereotype,
         position: component.metadata.graphics.position,
-        size: component.metadata.graphics.size
+        size: component.metadata.graphics.size,
+        thisLeft_toRightOf: component.attributes.thisLeft_toRightOf,
+        thisLeft_toLeftOf: component.attributes.thisLeft_toLeftOf,
+        thisRight_toRightOf: component.attributes.thisRight_toRightOf,
+        thisRight_toLeftOf: component.attributes.thisRight_toLeftOf,
+        thisTop_toTopOf: component.attributes.thisTop_toTopOf,
+        thisTop_toBottomOf: component.attributes.thisTop_toBottomOf,
+        thisBottom_toBottomOf: component.attributes.thisBottom_toBottomOf,
+        thisBottom_toTopOf: component.attributes.thisBottom_toTopOf,
     };
     switch (component.attributes.stereotype) {
     case 'details':
@@ -79,6 +94,7 @@ function mapViewComponent(component) {
         break;
     case 'form':
         attributes.fields = (component.attributes.fields && component.attributes.fields.slice()) || [];
+        attributes.types = (component.attributes.types && component.attributes.types.slice()) || [];
         break;
     }
     return new ifml.elements.ViewComponent(attributes);
@@ -179,8 +195,6 @@ function mapElement(element) {
         return mapNavigationFlow(element);
     case 'ifml.DataFlow':
         return mapDataFlow(element);
-    case 'ifml.Layout':
-        return mapLayout(element);
     }
 }
 
@@ -188,8 +202,6 @@ function applyMetadata(element, cells) {
     switch (element.type) {
     case 'ifml.ViewContainer':
         return applyViewContainerMetadata(element, cells);
-    case 'ifml.Layout':
-        return applyLayoutMetadata(element, cells);
     case 'ifml.ViewComponent':
         return applyViewComponentMetadata(element, cells);
     case 'ifml.Event':

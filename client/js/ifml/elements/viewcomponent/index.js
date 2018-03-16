@@ -22,6 +22,14 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         size: {width: 150, height: 60},
         name: 'View Component',
         stereotype: 'form',
+        thisLeft_toRightOf: 'none',
+        thisLeft_toLeftOf: 'none',
+        thisRight_toRightOf: 'none',
+        thisRight_toLeftOf: 'none',
+        thisTop_toTopOf: 'none',
+        thisTop_toBottomOf: 'none',
+        thisBottom_toBottomOf: 'none',
+        thisBottom_toTopOf: 'none',
         attrs: {
             '.': {magnet: 'passive'},
             '.ifml-component-reference-rect' : {'follow-scale': 'auto'},
@@ -71,7 +79,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
     isContraint: true,
     requireEmbedding: true,
     fullyContained: true,
-    containers: ['ifml.ViewContainer', 'ifml.Layout'],
+    containers: ['ifml.ViewContainer'],
 
     initialize: function () {
         this.on('change:size', this._sizeChanged, this);
@@ -146,7 +154,8 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
                     ];
                 case 'form':
                     return [
-                        {property: 'fields', name: 'Fields', type: 'stringset'}
+                        {property: 'fields', name: 'Fields', type: 'stringset'},
+                        {property: 'types', name: 'Types', type: 'stringset'}
                     ];
                 default:
                     return [];

@@ -44,6 +44,14 @@ function mapViewComponent(component) {
     var obj = mapElement(component);
     obj.attributes.name = component.get('name');
     obj.attributes.stereotype = component.get('stereotype');
+    obj.attributes.thisLeft_toRightOf = component.get('thisLeft_toRightOf');
+    obj.attributes.thisLeft_toLeftOf = component.get('thisLeft_toLeftOf');
+    obj.attributes.thisRight_toRightOf = component.get('thisRight_toRightOf');
+    obj.attributes.thisRight_toLeftOf = component.get('thisRight_toLeftOf');
+    obj.attributes.thisTop_toTopOf = component.get('thisTop_toTopOf');
+    obj.attributes.thisTop_toBottomOf = component.get('thisTop_toBottomOf');
+    obj.attributes.thisBottom_toBottomOf = component.get('thisBottom_toBottomOf');
+    obj.attributes.thisBottom_toTopOf = component.get('thisBottom_toTopOf');
     switch (component.get('stereotype')) {
     case 'details':
         obj.attributes.collection = component.get('collection') || '';
@@ -56,6 +64,7 @@ function mapViewComponent(component) {
         break;
     case 'form':
         obj.attributes.fields = (component.get('fields') && component.get('fields').slice()) || [];
+        obj.attributes.types = (component.get('types') && component.get('types').slice()) || [];
         break;
     }
     obj.metadata.graphics.size = component.get('size');
@@ -68,32 +77,48 @@ function mapViewContainer(container) {
     obj.attributes.default = container.get('default');
     obj.attributes.landmark = container.get('landmark');
     obj.attributes.xor = container.get('xor');
+
+    obj.attributes.width = container.get('width');
+    obj.attributes.height = container.get('height');
+
+    obj.attributes.thisLeft_toRightOf = container.get('thisLeft_toRightOf');
+    obj.attributes.thisLeft_toLeftOf = container.get('thisLeft_toLeftOf');
+    obj.attributes.thisRight_toRightOf = container.get('thisRight_toRightOf');
+    obj.attributes.thisRight_toLeftOf = container.get('thisRight_toLeftOf');
+    obj.attributes.thisTop_toTopOf = container.get('thisTop_toTopOf');
+    obj.attributes.thisTop_toBottomOf = container.get('thisTop_toBottomOf');
+    obj.attributes.thisBottom_toBottomOf = container.get('thisBottom_toBottomOf');
+    obj.attributes.thisBottom_toTopOf = container.get('thisBottom_toTopOf');
+
+    obj.attributes.visibility = container.get('visibility');
+    obj.attributes.gravity = container.get('gravity');
+    obj.attributes.className = container.get('className');
+
+
+    obj.attributes.margin = container.get('margin');
+    obj.attributes.marginRight = container.get('marginRight');
+    obj.attributes.marginLeft = container.get('marginLeft');
+    obj.attributes.marginBottom = container.get('marginBottom');
+    obj.attributes.marginTop = container.get('marginTop');
+    obj.attributes.padding = container.get('padding');
+    obj.attributes.paddingTop = container.get('paddingTop');
+    obj.attributes.paddingBottom = container.get('paddingBottom');
+    obj.attributes.paddingRight = container.get('paddingRight');
+    obj.attributes.paddingLeft = container.get('paddingLeft');
+    obj.attributes.maxWidth = container.get('maxWidth');
+    obj.attributes.maxHeight = container.get('maxHeight');
+    obj.attributes.minWidth = container.get('minWidth');
+    obj.attributes.minHeight = container.get('minHeight');
+    obj.attributes.zIndex = container.get('zIndex');
+    obj.attributes.overflow = container.get('overflow');
+    obj.attributes.border = container.get('border');
+    obj.attributes.font = container.get('font');
+    obj.attributes.color = container.get('color');
+    obj.attributes.align = container.get('align');
+    obj.attributes.opacity = container.get('opacity');
+    obj.attributes.filter = container.get('filter');
+
     obj.metadata.graphics.size = container.get('size');
-    return obj;
-}
-
-function mapLayout(layout) {
-    var obj = mapElement(layout);
-    obj.attributes.name = layout.get('name');
-    obj.attributes.width = layout.get('width');
-    obj.attributes.height = layout.get('height');
-    obj.attributes.orientation = layout.get('orientation');
-    obj.attributes.default = layout.get('default');
-    obj.attributes.landmark = layout.get('landmark');
-    obj.attributes.xor = layout.get('xor');
-
-    obj.attributes.thisLeft_toRightOf = layout.get('thisLeft_toRightOf');
-    obj.attributes.thisLeft_toLeftOf = layout.get('thisLeft_toLeftOf');
-    obj.attributes.thisRight_toRightOf = layout.get('thisRight_toRightOf');
-    obj.attributes.thisRight_toLeftOf = layout.get('thisRight_toLeftOf');
-    obj.attributes.thisTop_toTopOf = layout.get('thisTop_toTopOf');
-    obj.attributes.thisTop_toBottomOf = layout.get('thisTop_toBottomOf');
-    obj.attributes.thisBottom_toBottomOf = layout.get('thisBottom_toBottomOf');
-    obj.attributes.thisBottom_toTopOf = layout.get('thisBottom_toTopOf');
-    obj.attributes.visibility = layout.get('visibility');
-    obj.attributes.gravity = layout.get('gravity');
-
-    obj.metadata.graphics.size = layout.get('size');
     return obj;
 }
 
@@ -123,8 +148,6 @@ function extractElements(cells) {
         switch (item.get('type')) {
         case 'ifml.ViewContainer':
             return mapViewContainer(item);
-        case 'ifml.Layout':
-            return mapLayout(item);
         case 'ifml.ViewComponent':
             return mapViewComponent(item);
         case 'ifml.Event':
@@ -144,7 +167,6 @@ function mapElementRelations(element) {
         .filter(function (cell) {
             switch (cell.get('type')) {
             case 'ifml.ViewContainer':
-            case 'ifml.Layout':
             case 'ifml.ViewComponent':
             case 'ifml.Event':
                 return true;
