@@ -65,6 +65,8 @@ function mapViewComponent(component) {
     case 'form':
         obj.attributes.fields = (component.get('fields') && component.get('fields').slice()) || [];
         obj.attributes.types = (component.get('types') && component.get('types').slice()) || [];
+        obj.attributes.names = (component.get('names') && component.get('names').slice()) || [];
+        obj.attributes.labels = (component.get('labels') && component.get('labels').slice()) || [];
         break;
     }
     obj.metadata.graphics.size = component.get('size');
