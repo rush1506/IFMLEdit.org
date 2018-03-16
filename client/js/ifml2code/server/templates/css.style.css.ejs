@@ -1,4 +1,5 @@
-<%  for (var i = 0; i < css.elements.length; i++) { %>
+<%  for (var i = 0; i < css.elements.length; i++) { 
+if (css.elements[i].type == "ifml.ViewContainer") { %>
 #<%= css.elements[i].id %> {
 <% for (var attr in css.elements[i].attributes) { 
     if ( attr.indexOf("name") < 0 &&
@@ -15,4 +16,4 @@
     <%= tmp_attr %> : <%=  css.elements[i].attributes[attr] %>; <% }
 } %>
 }
-<%  } %>
+<%  } } %>
