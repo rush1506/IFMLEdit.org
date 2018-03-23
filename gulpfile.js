@@ -16,8 +16,8 @@ var gulp = require('gulp'),
     minifyjs = require('gulp-uglify'),
     minifyjson = require('gulp-json-minify'),
     merge = require('merge-stream'),
-    pug = require('gulp-pug'),
-    icongen = require('icon-gen');
+    pug = require('gulp-pug');
+    // icongen = require('icon-gen');
 
 var production = process.env.NODE_ENV === 'production',
     base_path = process.env.BASE_PATH || '/';
@@ -51,10 +51,10 @@ gulp.task('examples', function () {
         gulp.src('./client/examples/*.json').pipe(minifyjson()).pipe(gulp.dest('./public/examples'))
     );
 });
-
-gulp.task('favicon', function () {
-    return icongen('./client/favicon.svg', './public');
-});
+//TAKES TOO LONG TO BUILD (2 mins) UNNECESSARY
+// gulp.task('favicon', function () {
+//     return icongen('./client/favicon.svg', './public');
+// });
 
 gulp.task('vendor', function () {
     return merge(
@@ -312,7 +312,7 @@ gulp.task('demo-web-server', ['demo-web-server-index', 'demo-web-server-css', 'd
 // gulp.task('demo-web-client', ['demo-web-client-index', 'demo-web-client-html', 'demo-web-client-css', 'demo-web-client-js']);
 // gulp.task('demo-mobile', ['demo-mobile-index', 'demo-mobile-html', 'demo-mobile-css', 'demo-mobile-images', 'demo-mobile-js']);
 
-gulp.task('build', ['html', 'index', 'demo-web-server', 'vendor', 'sass', 'images', 'favicon', 'examples']);
+gulp.task('build', ['html', 'index', 'demo-web-server', 'vendor', 'sass', 'images', 'examples']);
 
 gulp.task('default', ['clean'], function () {
     return gulp.start('build');

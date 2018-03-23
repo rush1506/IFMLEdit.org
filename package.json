@@ -1,27 +1,28 @@
 {
-  "name": "ifmledit.org",
-  "version": "1.5.9",
-  "description": "A basic IFML WebEditor",
+  "name": "ifmleditwithlayout.org",
+  "version": "1.0.1",
+  "description": "Advanced IFML WebEditor with layout",
   "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp",
-    "postinstall": "npm run build",
-    "start": "pm2 start --name=IFMLEdit.org index.js && pm2 logs",
+    "preinstall": "superhero.bat",
+    "postinstall": "npm run build && npm stop && npm start",
+    "start": "pm2 start --name=IFMLEdit.org index.js && gulp watch",
     "poststart": "node -e \"require('open')('http://localhost:3000')\"",
     "stop": "pm2 stop IFMLEdit.org"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/B3rn475/IFMLEdit.org.git"
+    "url": "git+https://github.com/rush1506/IFMLEdit.org.git"
   },
-  "author": "Carlo Bernaschina",
+  "author": "Carlo Bernaschina && Tuan Chu && Tam Vu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/B3rn475/IFMLEdit.org/issues"
+    "url": "https://github.com/rush1506/IFMLEdit.org/issues"
   },
-  "homepage": "https://github.com/B3rn475/IFMLEdit.org#README",
+  "homepage": "https://github.com/rush1506/IFMLEdit.org#README",
   "devDependencies": {
     "open": "0.0.5",
     "pm2": "^2.7.2"
