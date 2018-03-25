@@ -7,11 +7,13 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "gulp",
+        "reload": "npm stop && npm start",
+        "installstop": "pm2 pid IFMLEdit.org > tmp && set /p var= < tmp && if %var% gtr 0 (npm stop) && del tmp",
         "preinstall": "superhero.bat",
-        "postinstall": "npm run build && npm stop && npm start",
+        "postinstall": "npm run build && npm run installstop && npm start",
         "start": "pm2 start --name=IFMLEdit.org index.js && gulp watch",
         "poststart": "node -e \"require('open')('http://localhost:3000')\"",
-        "stop": "pm2 pid IFMLEdit.org && pm2 stop IFMLEdit.org"
+        "stop": "pm2 stop IFMLEdit.org"
     },
     "repository": {
         "type": "git",

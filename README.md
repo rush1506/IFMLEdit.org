@@ -40,7 +40,9 @@ __To stop server__
 ```bash
 npm stop
 ## Installation v1.0.0
+
 __To install all dependencies (and regenerate static assets)__
+
 ```bash
 npm install
 ```
