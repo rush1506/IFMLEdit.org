@@ -154,7 +154,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
                     ];
                 case 'form':
                     return [
-                        {property: 'fields', name: 'Fields', type: 'rawuniquestringset'},
+                        {property: 'fields', name: 'Fields', type: 'rawstringset'},
                         {property: 'types', name: 'Types', type: 'dropdownset'},
                         {property: 'names', name: 'Names', type: 'rawstringset'},
                         {property: 'labels', name: 'Labels', type: 'rawstringset'}
