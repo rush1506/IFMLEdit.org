@@ -33,16 +33,10 @@
     } %>
 <%  for (var i = 0; i < logicAttributes.length; ++i) {
         if (logicAttributes[i].attributes.stereotype === "form") { -%>
-            form(action="#", method="POST")
-                <% for (var j = 0; j < logicAttributes[i].attributes.fields.length; j++) { %>
-                    .form-group
-                        label(for="<%= logicAttributes[i].attributes.fields[j] %>") <%= logicAttributes[i].attributes.fields[j] %>
-                        input(type="text", name='<%= logicAttributes[i].attributes.fields[j] %>', id='<%= logicAttributes[i].attributes.fields[j] %>' class="form-control")
-                <% } %>
-                <% if(logicAttributes[i].attributes.fields.length > 0) { %>
-                    input(type="submit", class="btn btn-primary" value="Submit")
-                <% } %>
-<%      } else { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "list") { -%>
 
-<%      }
+<%      } else if(logicAttributes[i].attributes.stereotype === "detail") {
+
+        }
     } -%>
