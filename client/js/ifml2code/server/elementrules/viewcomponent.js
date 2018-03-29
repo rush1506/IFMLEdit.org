@@ -14,13 +14,13 @@ function groupInputFields(element) {
     var newMap = Object.assign({}, element);
     newMap.attributes.fieldMap = [];
     var flag = false;
-    for (var i = 0; i < newMap.attributes.names.length; i++) {
+    for (var i = 0; i < newMap.attributes.formattrs.length; i++) {
         for (var j = 0; j < newMap.attributes.fieldMap.length; j++) {
-            if (newMap.attributes.fields[i] === newMap.attributes.fieldMap[j].field) {
+            if (newMap.attributes.formattrs[i].field === newMap.attributes.fieldMap[j].field) {
                 newMap.attributes.fieldMap[j].elements.push({
-                    label: newMap.attributes.labels[i],
-                    name: newMap.attributes.names[i],
-                    type: newMap.attributes.types[i]
+                    label: newMap.attributes.formattrs[i].label,
+                    name: newMap.attributes.formattrs[i].name,
+                    type: newMap.attributes.formattrs[i].type
                 });
                 flag = true;
                 break;
@@ -28,11 +28,11 @@ function groupInputFields(element) {
         }
         if (!flag) {
             newMap.attributes.fieldMap.push({
-                field: newMap.attributes.fields[i],
+                field: newMap.attributes.formattrs[i].field,
                 elements: [{
-                    label: newMap.attributes.labels[i],
-                    name: newMap.attributes.names[i],
-                    type: newMap.attributes.types[i]
+                    label: newMap.attributes.formattrs[i].label,
+                    name: newMap.attributes.formattrs[i].name,
+                    type: newMap.attributes.formattrs[i].type
                 }]
             })
         }
@@ -116,8 +116,12 @@ exports.rules = [
                     };
                 })
                 .value(),
-                fields = element.attributes.fields,
+                fields = _.chain(element.attributes.formattrs).map(function(x) {
+                    return x.field;
+                })
+                .value(),
                 obj = {};
+            console.log("field list: ", fields);
             var fieldMap = groupInputFields(element);
             fieldMap = fieldMap.attributes.fieldMap;
             console.log('DMMM COMPONENT FORM', fieldMap);
