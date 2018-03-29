@@ -9,7 +9,7 @@ var _ = require('lodash'),
     ifml = require('./').ifml;
 
 function mapViewContainer(container) {
-    return new ifml.elements.ViewContainer({
+    var attributes = {
         id: container.id,
         name: container.attributes.name,
         'default': container.attributes.default,
@@ -18,6 +18,7 @@ function mapViewContainer(container) {
         width: container.attributes.width,
         height: container.attributes.height,
         orientation: container.attributes.orientation,
+        className: container.attributes.className,
 
         thisLeft_toRightOf: container.attributes.thisLeft_toRightOf,
         thisLeft_toLeftOf: container.attributes.thisLeft_toLeftOf,
@@ -27,33 +28,9 @@ function mapViewContainer(container) {
         thisTop_toBottomOf: container.attributes.thisTop_toBottomOf,
         thisBottom_toBottomOf: container.attributes.thisBottom_toBottomOf,
         thisBottom_toTopOf: container.attributes.thisBottom_toTopOf,
-        
-        visibility: container.attributes.visibility,
-        gravity: container.attributes.gravity,
-        className: container.attributes.className,
-        margin: container.attributes.margin,
-        marginRight: container.attributes.marginRight,
-        marginLeft: container.attributes.marginLeft,
-        marginBottom: container.attributes.marginBottom,
-        marginTop: container.attributes.marginTop,
-        padding: container.attributes.padding,
-        paddingTop: container.attributes.paddingTop,
-        paddingBottom: container.attributes.paddingBottom,
-        paddingRight: container.attributes.paddingRight,
-        paddingLeft: container.attributes.paddingLeft,
-        maxWidth: container.attributes.maxWidth,
-        maxHeight: container.attributes.maxHeight,
-        minWidth: container.attributes.minWidth,
-        minHeight: container.attributes.minHeight,
-        zIndex: container.attributes.zIndex,
-        overflow: container.attributes.overflow,
-        border: container.attributes.border,
-        font: container.attributes.font,
-        color: container.attributes.color,
-        align: container.attributes.align,
-        opacity: container.attributes.opacity,
-        filter: container.attributes.filter,
-    });
+    };
+    attributes.styleattrs =  (container.attributes.styleattrs && container.attributes.styleattrs.slice()) || [];
+    return new ifml.elements.ViewContainer(attributes);
 }
 
 
@@ -93,10 +70,7 @@ function mapViewComponent(component) {
         attributes.filters = (component.attributes.filters && component.attributes.filters.slice()) || [];
         break;
     case 'form':
-        attributes.fields = (component.attributes.fields && component.attributes.fields.slice()) || [];
-        attributes.types = (component.attributes.types && component.attributes.types.slice()) || [];
-        attributes.names = (component.attributes.names && component.attributes.names.slice()) || [];
-        attributes.labels = (component.attributes.labels && component.attributes.labels.slice()) || [];
+        attributes.formattrs = (component.attributes.formattrs && component.attributes.formattrs.slice()) || [];
         break;
     }
     return new ifml.elements.ViewComponent(attributes);

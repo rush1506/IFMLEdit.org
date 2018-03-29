@@ -154,10 +154,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
                     ];
                 case 'form':
                     return [
-                        {property: 'fields', name: 'Fields', type: 'rawstringset'},
-                        {property: 'types', name: 'Types', type: 'dropdownset'},
-                        {property: 'names', name: 'Names', type: 'rawstringset'},
-                        {property: 'labels', name: 'Labels', type: 'rawstringset'}
+                        {property: 'formattrs', name: 'Formattrs', type: 'tableformset'},
                     ];
                 default:
                     return [];
@@ -173,7 +170,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         case 'list':
             return _(this.get('filters') || []).sort().uniq(true).value();
         case 'form':
-            return _(this.get('fields') || []).map(function (f) {
+            return _(this.get('formattrs').field || []).map(function (f) {
                 return [f, f + '-error'];
             }).flatten().sort().value();
         default:
@@ -188,7 +185,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         case 'list':
             return _(['id']).concat(this.get('fields') || []).sort().uniq(true).value();
         case 'form':
-            return _(this.get('fields') || []).sort().value();
+            return _(this.get('formattrs').field || []).sort().value();
         default:
             return [];
         }
