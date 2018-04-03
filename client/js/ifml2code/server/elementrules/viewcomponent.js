@@ -10,17 +10,18 @@ var _ = require('lodash'),
 
 
 function groupInputFields(element) {
-    console.log(element);
+    console.log('group input', element);
     var newMap = Object.assign({}, element);
     newMap.attributes.fieldMap = [];
     var flag = false;
     for (var i = 0; i < newMap.attributes.formattrs.length; i++) {
+        flag = false;
         for (var j = 0; j < newMap.attributes.fieldMap.length; j++) {
             if (newMap.attributes.formattrs[i].field === newMap.attributes.fieldMap[j].field) {
                 newMap.attributes.fieldMap[j].elements.push({
                     label: newMap.attributes.formattrs[i].label,
                     name: newMap.attributes.formattrs[i].name,
-                    type: newMap.attributes.formattrs[i].type
+                    type: newMap.attributes.formattrs[i].type[0]
                 });
                 flag = true;
                 break;
@@ -32,7 +33,7 @@ function groupInputFields(element) {
                 elements: [{
                     label: newMap.attributes.formattrs[i].label,
                     name: newMap.attributes.formattrs[i].name,
-                    type: newMap.attributes.formattrs[i].type
+                    type: newMap.attributes.formattrs[i].type[0]
                 }]
             })
         }

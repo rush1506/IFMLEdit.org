@@ -3,17 +3,25 @@
     form(id='<%= id %>')
     
 <% for (var i = 0; i < fieldMap.length; i++) { %>
-        label() <%= fieldMap[i].field %>
         .form-group
+        <% if(fieldMap[i].field) { %>
+            .custom-label
+                label() <%= fieldMap[i].field %>
+        <% } %>
         <% for(var j = 0; j < fieldMap[i].elements.length; j++) { %>
             <% if(fieldMap[i].elements[j].type === 'radio') { %>
-                .row
-                    .col-sm-3
-                        label() <%= fieldMap[i].elements[j].label %>
-                    .col-sm-6
-                        input(type="<%= fieldMap[i].elements[j].type %>", name='<%= fieldMap[i].elements[j].name %>', value='<%= fieldMap[i].elements[j].label %>')
+            .row.custom-input-row(style="padding-left:15px")
+                .col-sm-3
+                    label() <%= fieldMap[i].elements[j].label %>
+                .col-sm-6
+                    input(type="<%= fieldMap[i].elements[j].type %>", name='<%= fieldMap[i].elements[j].name %>', value='<%= fieldMap[i].elements[j].label %>')
             <% } else { %>
+            <% if(fieldMap[i].field) { %>
+            .custom-input-row(style="padding-left:15px")
+            <% } %>
+                label() <%= fieldMap[i].elements[j].label %>
                 input(type="<%= fieldMap[i].elements[j].type %>", name='<%= fieldMap[i].elements[j].name %>', placeholder='<%= fieldMap[i].elements[j].label %>', class="form-control")
+            
             <% } %>
         <% } %>
 <% } %>
