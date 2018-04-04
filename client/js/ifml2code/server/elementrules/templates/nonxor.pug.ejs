@@ -1,26 +1,22 @@
-#<%= id %>.<%= className %>(style="border: 1px solid #888;")
+#<%= id %>.<%= className %>.col-auto(style="border: 1px solid #888;")
     .container
 <%  for (var j = 0; j < childrenAttributes.length; ++j) { -%>
         .row
 <%      for(var i = 0; i < childrenAttributes[j].length; i++) { %>
-            .col-auto(style="width:<%= childrenAttributes[j][i].elements[0].attributes.width %>%;height:<%= childrenAttributes[j][i].elements[0].attributes.height %>%;")
-                <% if(childrenAttributes[j][i].type === 'normal') { %>                
-                    include ./<%= childrenAttributes[j][i].elements[0].id %>.pug
-                <% } %>
-                <% if(childrenAttributes[j][i].type === 'absolute') { %>                
-                    .abs-wrapper(style="position:relative;")
-                        <% for(var z = 0; z < childrenAttributes[j][i].elements.length; z++) { %>
-                            .abs-item(style="position:absolute;")
-                                include ./<%= childrenAttributes[j][i].elements[z].id %>.pug
-                        <% } %>
-                <% } %>
+            <% if(childrenAttributes[j][i].type === 'normal') { %>                
+                include ./<%= childrenAttributes[j][i].elements[0].id %>.pug
+            <% } %>
+            <% if(childrenAttributes[j][i].type === 'absolute') { %>                
+                .abs-wrapper(style="position:relative;")
+                    <% for(var z = 0; z < childrenAttributes[j][i].elements.length; z++) { %>
+                        .abs-item(style="position:absolute;")
+                            include ./<%= childrenAttributes[j][i].elements[z].id %>.pug
+                    <% } %>
+            <% } %>
 <%      }
     } %>
     .container
         .row
-<%      if(childrenAttributes.length === 0) { %>
-            p sbcsbcbsbj vfvd fvdfv d fv s
-<%      } %>
 <%  for (var i = 0; i < events.length; ++i) {
         if (events[i].targetsAction) { -%>
             form(action=vm['<%= events[i].id %>'].action, method="POST")
