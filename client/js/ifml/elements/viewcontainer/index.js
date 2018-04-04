@@ -78,23 +78,6 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         this.on('change:parent', this._parentChanged, this);
         this.on('change:accent', this._accentChanged, this);
 
-        this.on('change:width', this._widthChanged, this);
-
-        this.on('change:thisLeft_toRightOf', this._thisLeft_toRightOfChanged, this);
-        this.on('change:thisLeft_toLeftOf', this._thisLeft_toLeftOfChanged, this);
-        this.on('change:thisRight_toRightOf', this._thisRight_toRightOfChanged, this);
-        this.on('change:thisRight_toLeftOf', this._thisRight_toLeftOfChanged, this);
-        this.on('change:thisTop_toTopOf', this._thisTop_toTopOfChanged, this);
-        this.on('change:thisTop_toBottomOf', this._thisTop_toBottomOfChanged, this);
-        this.on('change:thisBottom_toTopOf', this._thisBottom_toTopOfChanged, this);
-        this.on('change:thisBottom_toBottomOf', this._thisBottom_toTopOfChanged, this);
-
-        this.on('change:styleattrs', this._stylesChanged, this);
-
-        this.on('change:height', this._heightChanged, this);
-        this.on('change:orientation', this._orientationChanged, this);
-
-        this.on('change:className', this._classNameChanged, this);
         
         joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
         this._sizeChanged();
@@ -291,55 +274,4 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
     },
 
     
-    _widthChanged: function () {
-        this._rerenderPreviewUI();
-    },
-
-    _heightChanged: function () {
-        this._rerenderPreviewUI();
-    },
-
-    _orientationChanged: function () {
-        this._rerenderPreviewUI();
-    },
-
-    _thisLeft_toRightOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _thisLeft_toLeftOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _thisRight_toRightOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _thisRight_toLeftOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _thisTop_toTopOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _thisTop_toBottomOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _thisBottom_toTopOfChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _stylesChanged: function () {
-        _rerenderPreviewUI();
-    },
-
-    _rerenderPreviewUI: function () {
-        return;
-    },
-
-    _classNameChanged: function () {
-
-    }
 });
