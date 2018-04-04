@@ -285,9 +285,7 @@ pcnSimulator.on('stop', function () { $('#pcn-simulate').prop('checked', false);
 $('#web-server .zip-download').click(function () {
     try {
         var start = new Date();
-        console.log("WTF 1: ",ifmlModel);
         saveAs(ifml2code.server(ifml.toJSON(ifmlModel)).generate({type: 'blob'}), 'webexample.zip');
-        console.log("WTF 2: ",ifmlModel);
         $.notify({message: 'Convertion completed in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
     } catch (e) {
         if (e instanceof AException) {

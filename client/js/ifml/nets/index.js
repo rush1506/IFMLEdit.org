@@ -6,5 +6,8 @@
 
 exports.nets = {
     createDetails: require('./details').createDetails,
-    createList: require('./list').createList
+    createList: require('./list').createList,
+    createButton:  require('./button').createButton,
+    createText:  require('./text').createText,
+    createImage:  require('./image').createImage
 };

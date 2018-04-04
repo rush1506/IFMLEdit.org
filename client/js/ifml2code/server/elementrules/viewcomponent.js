@@ -42,6 +42,116 @@ function groupInputFields(element) {
 }
 
 exports.rules = [
+    createRule( // map image
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'image'; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                collection = element.attributes.collection,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/image.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/image.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
+    createRule( // map button
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'button'; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/button.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/button.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
+    createRule( // map text
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'text'; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.toElement(model.getOutbounds(event)[0]),
+                        target = model.getTarget(flow);
+                    return {
+                        id: event.id,
+                        name: event.attributes.name,
+                        target: model.toId(target),
+                        targetsAction: model.isAction(target),
+                        type: model.isAction(target) ? 'action' : target.attributes.stereotype,
+                        bindings: flow.attributes.bindings
+                    };
+                })
+                .value(),
+                attributes = element.attributes, 
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/text.pug.ejs')({ id: id, name: name, attributes: attributes, events: events }) };
+            obj[tid + '-viewmodel'] = { children: id + '-view-js' };
+            obj[id + '-view-js'] = { name: id + '.js', content: require('./templates/text.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
     createRule( // map list
         function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'list'; },
         function(element, model) {
@@ -125,7 +235,7 @@ exports.rules = [
             console.log("field list: ", fields);
             var fieldMap = groupInputFields(element);
             fieldMap = fieldMap.attributes.fieldMap;
-            console.log('DMMM COMPONENT FORM', fieldMap);
+            console.log('COMPONENT FORM MAP', fieldMap);
             obj[tid + '-view'] = { children: id + '-pug' };
             obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/form.pug.ejs')({ id: id, name: name, fields: fields, events: events, fieldMap: fieldMap }) };
             obj[tid + '-viewmodel'] = { children: id + '-view-js' };
@@ -168,4 +278,5 @@ exports.rules = [
             return obj;
         }
     ),
+    
 ];

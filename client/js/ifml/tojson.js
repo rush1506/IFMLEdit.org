@@ -65,6 +65,19 @@ function mapViewComponent(component) {
     case 'form':
         obj.attributes.formattrs = (component.get('formattrs') && component.get('formattrs').slice()) || [];
         break;
+    case 'text':
+        obj.attributes.content = component.get('content');
+        obj.attributes.header = component.get('header');
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
+    case 'image':
+        obj.attributes.src = component.get('src');
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
+    case 'button':
+        obj.attributes.value = component.get('value');
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
     }
     obj.metadata.graphics.size = component.get('size');
     return obj;

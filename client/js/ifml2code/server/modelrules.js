@@ -41,7 +41,10 @@ exports.rules = [
                     .value(),
                 collections = _.chain(model.elements)
                     .filter(function (e) { return model.isViewComponent(e)})
-                    .reject({attributes: {stereotype: 'form'}})
+                    .reject((x) => {return x.attributes.stereotype === 'form' || 
+                        x.attributes.stereotype === 'image' ||
+                        x.attributes.stereotype === 'button' ||
+                        x.attributes.stereotype === 'text'})
                     .map(function (c) {
                         if (c.attributes.collection) {
                             return c.attributes.collection;

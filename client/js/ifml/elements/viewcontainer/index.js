@@ -336,7 +336,7 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
     },
 
     _rerenderPreviewUI: function () {
-
+        return;
     },
 
     _classNameChanged: function () {

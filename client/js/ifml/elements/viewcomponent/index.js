@@ -119,6 +119,10 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
             this.attr({'.ifml-component-binding-rect': {'visibility': 'visible'}});
             this.attr({'.ifml-component-binding': {'visibility': 'visible'}});
             break;
+        case 'text':
+        case 'image':
+        case 'button':
+            break;
         default:
             this.attr({'.ifml-component-headline': {'y-alignment': 'middle'}});
             this.attr({'.ifml-component-binding-rect': {'visibility': 'hidden'}});
@@ -127,6 +131,14 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
     },
 
     _collectionChanged: function () {
+        switch (this.get('stereotype')) {
+            case 'text':
+            case 'image':
+            case 'button':
+                return;
+            default:
+                break;
+        }
         var collection = this.get('collection');
         if (collection) {
             this.removeAttr('.binding/fill');
@@ -156,13 +168,29 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
                     return [
                         {property: 'formattrs', name: 'Formattrs', type: 'tableformset'},
                     ];
+                case 'text':
+                    return [
+                        {property: 'header', name: 'Header', type: 'string'},
+                        {property: 'content', name: 'Content', type: 'string'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ]; 
+                case 'image':
+                    return [
+                        {property: 'src', name: 'Source', type: 'string'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ]; 
+                case 'button':
+                    return [
+                        {property: 'value', name: 'value', type: 'string'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ]; 
                 default:
                     return [];
                 }
             }()))
             .value();
     },
-
+    //TODO: FIND OUT WTF DOES THIS DO
     inputs: function () {
         switch (this.get('stereotype')) {
         case 'details':
@@ -177,7 +205,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
             return [];
         }
     },
-
+    //TODO: FIND OUT WTF DOES THIS DO
     outputs: function () {
         switch (this.get('stereotype')) {
         case 'details':

@@ -72,6 +72,19 @@ function mapViewComponent(component) {
     case 'form':
         attributes.formattrs = (component.attributes.formattrs && component.attributes.formattrs.slice()) || [];
         break;
+    case 'button':
+        attributes.value = component.attributes.value;
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
+    case 'text':
+        attributes.header = component.attributes.header;
+        attributes.content = component.attributes.content;
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
+    case 'image':
+        attributes.src = component.attributes.src;
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
     }
     return new ifml.elements.ViewComponent(attributes);
 }
