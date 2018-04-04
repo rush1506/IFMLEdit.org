@@ -35,7 +35,13 @@
         if (logicAttributes[i].attributes.stereotype === "form") { -%>
             include ./<%= logicAttributes[i].id %>.pug
 <%      } else if(logicAttributes[i].attributes.stereotype === "list") { -%>
-
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "image") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "text") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "button") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
 <%      } else if(logicAttributes[i].attributes.stereotype === "detail") {
 
         }
