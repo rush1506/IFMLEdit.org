@@ -189,16 +189,16 @@ function getSingleRootId(root_arr, map) {
  * 
  * get depth level
  */
-function getDepthLevel(map, root_arr) {
+function getDepthLevel(map, root_arr, parentId) {
     for (var root in root_arr) {
         var node = { id: root_arr[root] };
-        map = setDepthForNode(map, node, 0, 0);
+        map = setDepthForNode(map, node, 0, 0, parentId);
         console.log("Sucess! From root: ", root);
     }
     return map;
 }
 
-function setDepthForNode(map, node, col_depth, row_depth) {
+function setDepthForNode(map, node, col_depth, row_depth, parentId) {
 
     var node_index = map.indexOf(map.filter((x) => {
         return x.id == node.id;
@@ -209,37 +209,36 @@ function setDepthForNode(map, node, col_depth, row_depth) {
 
     map = setDepth(map, node_index, col_depth, row_depth);
 
-    // console.log("Set depth OK!", map);
+    console.log("Set depth OK!", map);
 
     var node_path = [];
     node_path.push({ i: node_index });
     // console.log ("node path 11", node_path);
-    map = setDepthForAllNodeBranch(map, node_index, col_depth, row_depth, node_path);
+    map = setDepthForAllNodeBranch(map, node_index, col_depth, row_depth, node_path, parentId);
 
     return map;
 }
 
-function setDepthForAllNodeBranch(map, index, col_depth, row_depth, node_path) {
+function setDepthForAllNodeBranch(map, index, col_depth, row_depth, node_path, parentId) {
     // console.log("thisBottom_toBottomOf");
     if (row_depth != -1) {
-        map = setDepthForBranch(map, index, 'thisBottom_toBottomOf', -1, row_depth, node_path);
-        map = setDepthForBranch(map, index, 'thisTop_toTopOf', -1, row_depth, node_path);
-        map = setDepthForBranch(map, index, 'thisBottom_toTopOf', -1, row_depth + 1, node_path);
-        map = setDepthForBranch(map, index, 'thisTop_toBottomOf', -1, row_depth - 1, node_path);
-
+        map = setDepthForBranch(map, index, 'thisBottom_toBottomOf', -1, row_depth, node_path, parentId);
+        map = setDepthForBranch(map, index, 'thisTop_toTopOf', -1, row_depth, node_path, parentId);
+        map = setDepthForBranch(map, index, 'thisBottom_toTopOf', -1, row_depth + 1, node_path, parentId);
+        map = setDepthForBranch(map, index, 'thisTop_toBottomOf', -1, row_depth - 1, node_path, parentId);
     }
 
     if (col_depth != -1) {
-        map = setDepthForBranch(map, index, 'thisLeft_toLeftOf', col_depth, -1, node_path);
-        map = setDepthForBranch(map, index, 'thisRight_toRightOf', col_depth, -1, node_path);
-        map = setDepthForBranch(map, index, 'thisLeft_toRightOf', col_depth - 1, -1, node_path);
-        map = setDepthForBranch(map, index, 'thisRight_toLeftOf', col_depth + 1, -1, node_path);
+        map = setDepthForBranch(map, index, 'thisLeft_toLeftOf', col_depth, -1, node_path, parentId);
+        map = setDepthForBranch(map, index, 'thisRight_toRightOf', col_depth, -1, node_path, parentId);
+        map = setDepthForBranch(map, index, 'thisLeft_toRightOf', col_depth - 1, -1, node_path, parentId);
+        map = setDepthForBranch(map, index, 'thisRight_toLeftOf', col_depth + 1, -1, node_path, parentId);
     }
 
     return map;
 }
 
-function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, node_path) {
+function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, node_path, parentId) {
     // console.log("Attrbute: ", attribute_name);
     // console.log("Attrbute: ", map);
 
@@ -262,7 +261,7 @@ function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, nod
         })[0]);
 
         if (isExistNode == -1 && node_index != -1) {
-            map = setDepth(map, node_index, col_depth, row_depth);
+            map = setDepth(map, node_index, col_depth, row_depth, parentId);
             // console.log("map after set: ", map);
 
             if (map[node_index].col_depth != -1 && map[node_index].row_depth != -1) {
@@ -277,17 +276,22 @@ function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, nod
     return map;
 }
 
-function setDepth(map, index, col_level, row_level) {
+function setDepth(map, index, col_level, row_level, parentId) {
     // console.log("Map index", index);
     // console.log("col", col_level);
     // console.log("row", row_level);
+    
+    if (map[index].attributes.thisLeft_toLeftOf[0] == parentId || map[index].attributes.thisLeft_toLeftOf[0] == 'none')
+        map[index].col_depth = 0;
+    if (map[index].attributes.thisTop_toTopOf[0] == parentId || map[index].attributes.thisTop_toTopOf[0] == 'none')
+        map[index].row_depth = 0;
     if (map[index].col_depth == -1 && col_level != -1) {
         map[index].col_depth = col_level;
     }
     if (map[index].row_depth == -1 && row_level != -1) {
         map[index].row_depth = row_level;
     }
-    var tmp = _.cloneDeep(map[index]);
+    // var tmp = _.cloneDeep(map[index]);
     // console.log("Map index", tmp);
     return map;
 }
@@ -306,7 +310,7 @@ function getNodeMap(map, childrenAttributes, id) {
         // console.log("Generate Node Relation Success!", map);
         var root_arr = findRoots(map, id);
         // console.log("Find Root Success!", root_arr);
-        map = getDepthLevel(map, root_arr);
+        map = getDepthLevel(map, root_arr, id);
         // console.log("Get Depth Level Success!", map);
     }
     return map;
