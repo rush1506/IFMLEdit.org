@@ -20,7 +20,7 @@ function mapLayoutNodeRelation(map, data) {
     // console.log("WTF", map);
     map = createMapData(map, data); // quan hệ giữa map và data được thể hiện ở index, index của 2 bên tương ứng với nhau
     //map: Gồm các nốt với mỗi nốt có 8 attributes định hướng, mỗi attr là một array và một id của Layout hiện tại
-    console.log("Generate New Map Data Success!", map);
+    // console.log("Generate New Map Data Success!", map);
     for (var i = 0; i < data.length; i++) {
         map = mapAttributeNode(map, data, i); //Chui vào 8 nốt được định tới và nhét vào các nốt đó thông tin rằng nốt đó được ref bởi thằng này
     }
@@ -362,14 +362,14 @@ function getAbsoluteNodeInRow(map, index) {
     var temp = [];
     var tempChild = [];
     var tempData = map[index][0];
-    // console.log('DUCANHAMAYYYYYYY', map, index, tempData);
+    // console.log('ASBO', map, index, tempData);
     for (var i = 0; i < map[index].length; i++) {
-        // console.log('DUCONMAYYYYYYY', tempChild);
+        // console.log('ABSO', tempChild);
         if (map[index][i].col_depth === tempData.col_depth && map[index][i].row_depth === tempData.row_depth) {
             tempChild.push(map[index][i]);
-            // console.log('DUMAMAYYYYYYY', tempChild);
+            // console.log('ABSO', tempChild);
         } else {
-            // console.log('DUCHAMAYYYYYYY', tempChild);
+            // console.log('ABSO NOTE', tempChild);
             var tempObj = {
                 type: 'normal',
                 elements: tempChild
@@ -465,16 +465,16 @@ exports.rules = [
                 obj = {};
             // console.log("Non xor master element", element);
             // console.log("Non xor children attribute", childrenAttributes);
-            console.log("Non xor logic attribute", logicAttributes);
+            // console.log("Non xor logic attribute", logicAttributes);
 
             var map = [];
-            console.log("Non xor maps", map);
+            // console.log("Non xor maps", map);
             map = getNodeMap(map, childrenAttributes, id);
 
-            console.log("Non xor final maps", map);
+            // console.log("Non xor final maps", map);
             var sortedMap = sortMap(map);
             var finalMap = getAbsoluteNode(sortedMap);
-            console.log("FINAL SORTED MAP NON XOR", finalMap);
+            // console.log("FINAL SORTED MAP NON XOR", finalMap);
 
             obj[tid + '-view'] = { children: id + '-pug' };
             obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/nonxor.pug.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes }) };
@@ -536,14 +536,14 @@ exports.rules = [
                 tid = top.id,
                 path = model.isDefault(top) ? '' : tid,
                 obj = {};
-            console.log("Xor master element", element);
-            console.log("Xor children attribute", childrenAttributes);
-            console.log("Xor logic attribute", logicAttributes);
+            // console.log("Xor master element", element);
+            // console.log("Xor children attribute", childrenAttributes);
+            // console.log("Xor logic attribute", logicAttributes);
 
             var map = [];
             map = getNodeMap(map, childrenAttributes, id);
 
-            console.log("Xor final map", map);
+            // console.log("Xor final map", map);
 
             obj[tid + '-view'] = { children: id + '-pug' };
             obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/xor.pug.ejs')({ id: id, children: children, events: events, landmarks: landmarks, className: className, childrenAttributes: childrenAttributes }) };
