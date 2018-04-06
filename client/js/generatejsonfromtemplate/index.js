@@ -28,9 +28,10 @@ templatetomodel.generate = function (ifml) {
 
 function createViewComponentInside(ifml_generated, element, parentElement) {
     ifml_generated.relations.forEach(relation => {
-        if (relation.parent === element.id && relation.type === 'hierarchy') {
-            let tempJsonTemplate = generateComponentJsonModel(ifml_generated, parentElement, relation.child)
-            ifml_generated = addHierarchy(ifml_generated, element.id, newJsonModel.id);
+        if (relation.parent === parentElement.attributes.refId && relation.type === 'hierarchy') {
+            let tempJsonTemplate = generateComponentJsonModel(ifml_generated, parentElement, element.id, relation.child);
+            console.log(tempJsonTemplate);
+            ifml_generated = addHierarchy(ifml_generated, element.id, tempJsonTemplate.id);
             ifml_generated.elements.push(tempJsonTemplate);
         }
     })
@@ -40,11 +41,11 @@ function createViewComponentInside(ifml_generated, element, parentElement) {
 function generateNestedView(ifml_generated, topParentElement, element) {
     ifml_generated.relations.forEach(relation => {
         if (relation.parent === element.id && relation.type === 'hierarchy') {
-            let tempJsonTemplate = generateComponentJsonModel(ifml_generated, topParentElement, relation.child)
-            ifml_generated = addHierarchy(ifml_generated, element.id, newJsonModel.id);
+            let tempJsonTemplate = generateComponentJsonModel(ifml_generated, topParentElement, element.id, relation.child)
+            ifml_generated = addHierarchy(ifml_generated, element.id, tempJsonTemplate.id);
             ifml_generated.elements.push(tempJsonTemplate);
             if (tempJsonTemplate.type === 'ifml.ViewContainer') {
-                generateNestedView(ifml_generated, topParentElement, tempJsonTemplate)
+                ifml_generated = generateNestedView(ifml_generated, topParentElement, tempJsonTemplate)
             }
         }
     })
