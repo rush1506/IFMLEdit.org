@@ -52,6 +52,7 @@ function mapViewComponent(component) {
     obj.attributes.thisTop_toBottomOf = component.get('thisTop_toBottomOf');
     obj.attributes.thisBottom_toBottomOf = component.get('thisBottom_toBottomOf');
     obj.attributes.thisBottom_toTopOf = component.get('thisBottom_toTopOf');
+    obj.attributes.isItem = component.get('isItem');
     switch (component.get('stereotype')) {
     case 'details':
         obj.attributes.collection = component.get('collection') || '';
@@ -102,7 +103,11 @@ function mapViewContainer(container) {
     obj.attributes.thisBottom_toBottomOf = container.get('thisBottom_toBottomOf');
     obj.attributes.thisBottom_toTopOf = container.get('thisBottom_toTopOf');
 
+    obj.attributes.isItem = container.get('isItem');
+    obj.attributes.refId = container.get('refId');
+
     obj.attributes.styleattrs = (container.get('styleattrs') && container.get('styleattrs').slice()) || [];
+    obj.attributes.placeholder = (container.get('placeholder') && container.get('placeholder').slice()) || [];
     obj.metadata.graphics.size = container.get('size');
     return obj;
 }

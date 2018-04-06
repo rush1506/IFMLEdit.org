@@ -30,6 +30,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         thisTop_toBottomOf: 'none',
         thisBottom_toBottomOf: 'none',
         thisBottom_toTopOf: 'none',
+        isItem: false,
         attrs: {
             '.': {magnet: 'passive'},
             '.ifml-component-reference-rect' : {'follow-scale': 'auto'},
@@ -150,7 +151,8 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
 
     editable: function () {
         var self = this;
-        return _([{property: 'name', name: 'Name', type: 'string'}])
+        return _([{property: 'name', name: 'Name', type: 'string'},
+                    {property: 'isItem', name: 'Is Item', type: 'boolean'}])
             .concat((function () {
                 switch (self.get('stereotype')) {
                 case 'list':

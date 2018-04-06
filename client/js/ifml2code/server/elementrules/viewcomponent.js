@@ -43,7 +43,7 @@ function groupInputFields(element) {
 
 exports.rules = [
     createRule( // map image
-        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'image'; },
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'image' && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
@@ -78,7 +78,7 @@ exports.rules = [
         }
     ),
     createRule( // map button
-        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'button'; },
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'button' && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
@@ -112,7 +112,7 @@ exports.rules = [
         }
     ),
     createRule( // map text
-        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'text'; },
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'text' && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
@@ -153,7 +153,7 @@ exports.rules = [
         }
     ),
     createRule( // map list
-        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'list'; },
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'list' && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
@@ -196,7 +196,7 @@ exports.rules = [
         }
     ),
     createRule( // map form
-        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'form'; },
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'form' && !element.attributes.isItem;},
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
@@ -244,7 +244,7 @@ exports.rules = [
         }
     ),
     createRule( // map details
-        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'details'; },
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'details' && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,

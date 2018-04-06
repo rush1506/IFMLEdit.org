@@ -28,6 +28,7 @@ var _ = require('lodash'),
     ifml2code = require('./ifml2code').ifml2code,
     createIFBrowser = require('./ifbrowser').IFBrowser,
     createIFClient = require('./ifclient').IFClient,
+    templatetomodel = require('./generatejsonfromtemplate').templatetomodel,
     AException = require('almost').Exception;
 
 function toBuilder(Element) { return function () { return [new Element()]; }; }
@@ -285,7 +286,8 @@ pcnSimulator.on('stop', function () { $('#pcn-simulate').prop('checked', false);
 $('#web-server .zip-download').click(function () {
     try {
         var start = new Date();
-        saveAs(ifml2code.server(ifml.toJSON(ifmlModel)).generate({type: 'blob'}), 'webexample.zip');
+        let ifml_json = templatetomodel.generate(ifml.toJSON(ifmlModel));
+        saveAs(ifml2code.server(ifml_json).generate({type: 'blob'}), 'webexample.zip');
         $.notify({message: 'Convertion completed in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
     } catch (e) {
         if (e instanceof AException) {
@@ -300,7 +302,8 @@ $('#web-server .zip-download').click(function () {
 $('#web-server .zip-try').click(function () {
     try {
         var start = new Date();
-        ifbrowser.start(ifml2code.server(ifml.toJSON(ifmlModel)).generate({type: 'string'}));
+        let ifml_json = templatetomodel.generate(ifml.toJSON(ifmlModel));
+        ifbrowser.start(ifml2code.server(ifml_json).generate({type: 'string'}));
         ifbrowser.reload();
         $.notify({message: 'Convertion completed in ' + (Math.floor((new Date() - start) / 10) / 100) + ' seconds!'}, {allow_dismiss: true, type: 'success'});
     } catch (e) {

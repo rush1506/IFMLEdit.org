@@ -397,7 +397,7 @@ function getAbsoluteNodeInRow(map, index) {
 
 exports.rules = [
     createRule( // map View Container
-        function(element, model) { return model.isViewContainer(element) && model.getParent(element) === undefined; },
+        function(element, model) { return model.isViewContainer(element) && model.getParent(element) === undefined && !element.attributes.isItem;},
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
@@ -427,7 +427,7 @@ exports.rules = [
         }
     ),
     createRule( // map View Container
-        function(element, model) { return model.isViewContainer(element) && !model.isXOR(element); },
+        function(element, model) { return model.isViewContainer(element) && !model.isXOR(element) && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 className = element.attributes.className,
@@ -484,7 +484,7 @@ exports.rules = [
         }
     ),
     createRule( // map XOR View Container
-        function(element, model) { return model.isViewContainer(element) && model.isXOR(element); },
+        function(element, model) { return model.isViewContainer(element) && model.isXOR(element) && !element.attributes.isItem; },
         function(element, model) {
             var id = element.id,
                 className = element.attributes.className,

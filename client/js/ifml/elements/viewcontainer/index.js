@@ -33,7 +33,9 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
         thisTop_toBottomOf: 'none',
         thisBottom_toBottomOf: 'none',
         thisBottom_toTopOf: 'none',
+        isItem: false,
         styleattrs: [],
+        refId: 'none',
 
         attrs: {
             '.': {marker: 'passive'},
@@ -129,7 +131,10 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
             );
             editables = editables.concat(
                 {property: 'styleattrs', name: 'Style', type: 'styleset'},
-                
+                {property: 'isItem', name: 'Is Item', type: 'boolean'},
+                {property: 'refId', name: 'Reference Id', type: 'string'}, 
+                {property: 'placeholder', name: 'Edit Placeholder', type: 'styleset'}, 
+
             );
             if (this.get('parent')) {
                 editables = editables.concat(

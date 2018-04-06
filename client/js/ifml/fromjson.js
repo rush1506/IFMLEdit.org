@@ -28,8 +28,12 @@ function mapViewContainer(container) {
         thisTop_toBottomOf: container.attributes.thisTop_toBottomOf,
         thisBottom_toBottomOf: container.attributes.thisBottom_toBottomOf,
         thisBottom_toTopOf: container.attributes.thisBottom_toTopOf,
+
+        isItem: container.attributes.isItem,
+        refId: container.attributes.refId,
     };
     attributes.styleattrs =  (container.attributes.styleattrs && container.attributes.styleattrs.slice()) || [];
+    attributes.placeholder =  (container.attributes.placeholder && container.attributes.placeholder.slice()) || [];
     return new ifml.elements.ViewContainer(attributes);
 }
 
@@ -58,6 +62,7 @@ function mapViewComponent(component) {
         thisTop_toBottomOf: component.attributes.thisTop_toBottomOf,
         thisBottom_toBottomOf: component.attributes.thisBottom_toBottomOf,
         thisBottom_toTopOf: component.attributes.thisBottom_toTopOf,
+        isItem: component.attributes.isItem,
     };
     switch (component.attributes.stereotype) {
     case 'details':
