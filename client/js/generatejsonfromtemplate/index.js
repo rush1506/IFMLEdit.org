@@ -40,10 +40,10 @@ function generateNestedView(ifml_generated, topParentElement, element, templateI
         if (relation.parent === templateId && relation.type === 'hierarchy') {
             let tempJsonTemplate = generateComponentJsonModel(ifml_generated, topParentElement, element.id, relation.child)
             ifml_generated = addHierarchy(ifml_generated, element.id, tempJsonTemplate.id);
-            ifml_generated.elements.push(tempJsonTemplate);
             if (tempJsonTemplate.type === 'ifml.ViewContainer') {
                 ifml_generated = generateNestedView(ifml_generated, topParentElement, tempJsonTemplate, relation.child);
             }
+            ifml_generated.elements.push(tempJsonTemplate);
         }
     })
     return ifml_generated;
@@ -140,9 +140,50 @@ function generateComponentJsonModel(ifml_generated, topParentElement, nearParent
         tempJsonTemplate = replacePropertyValue(pair.key, pair.value, tempJsonTemplate);
     });
     let newId = nearParentId + '-' + tempJsonTemplate.id;
+    if (tempJsonTemplate.type === 'ifml.ViewContainer') {
+        tempJsonTemplate = regenPositionAttributes(tempJsonTemplate, nearParentId)
+    }
     tempJsonTemplate.id = newId;
     tempJsonTemplate.attributes.isItem = false;
     return tempJsonTemplate;
+}
+
+
+/**
+ * Regenerate position attrs
+ * @param  {object} tempJsonTemplate current selected view container element
+ * @param  {any} nearParentId neared parent id
+ * @return {object} the new view with generated attrs
+ */
+
+function regenPositionAttributes(tempJsonTemplate, nearParentId) {
+    tempJsonTemplate = mapAttribute('thisBottom_toBottomOf', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisBottom_toTopOf', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisLeft_toLeftOf ', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisLeft_toRightOf', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisRight_toLeftOf', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisRight_toRightOf', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisTop_toBottomOf', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisTop_toTopOf', tempJsonTemplate, nearParentId);
+    return tempJsonTemplate;
+
+}
+
+
+/**
+ * Regenerate position attribute
+ * @param  {object} attribute current selected attribute
+ * @param  {object} element current selected view container element
+ * @param  {any} nearParentId neared parent id
+ * @return {object} the new view with generated attrs
+ */
+
+function mapAttribute(attribute, element, nearParentId) {
+    if (element.attributes[attribute] === 'none') {
+        return element;
+    }
+    element.attributes[attribute] = nearParentId + '-' + element.attributes[attribute];
+    return element;
 }
 
 /**
