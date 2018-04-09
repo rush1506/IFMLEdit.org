@@ -193,7 +193,7 @@ function getDepthLevel(map, root_arr, parentId) {
     for (var root in root_arr) {
         var node = { id: root_arr[root] };
         map = setDepthForNode(map, node, 0, 0, parentId);
-        console.log("Sucess! From root: ", root);
+        // console.log("Success! From root: ", root);
     }
     return map;
 }
@@ -209,7 +209,7 @@ function setDepthForNode(map, node, col_depth, row_depth, parentId) {
 
     map = setDepth(map, node_index, col_depth, row_depth);
 
-    console.log("Set depth OK!", map);
+    // console.log("Set depth OK!", map);
 
     var node_path = [];
     node_path.push({ i: node_index });
