@@ -8,12 +8,12 @@ var _ = require('lodash'),
     pcn = require('../../../pcn').pcn,
     createRule = require('almost').createRule;
 
-
-/*********
- * 
- * MAP NODE
+/**
+ * function to create node map from existing position attributes that user have set
+ * @param  {object} map empty map object
+ * @param  {[{attributes:[]}, {id: 0}]} data children attributes of the selected view
+ * @return {object} the new map json
  */
-// data: {[{attributes:[]}, {id: 0}]}
 function mapLayoutNodeRelation(map, data) {
     // console.log("data1", data);
     //create all note
@@ -27,8 +27,14 @@ function mapLayoutNodeRelation(map, data) {
     return map;
 }
 
+/**
+ * function to map attributes position betweennode
+ * @param  {object} map map object
+ * @param  {[{attributes:[]}, {id: 0}]} data children attributes of the selected view
+ * @param  {object} id index of the selected node
+ * @return {object} the new map json
+ */
 
-//i: current index of the selected node
 function mapAttributeNode(map, data, i) {
     //truy xuất từng mảng attr
     //id truyền vô là id được tham chiếu từ node hiện tại
@@ -51,6 +57,16 @@ function mapAttributeNode(map, data, i) {
 
     return map;
 }
+
+/**
+ * function to map attribute position betweennode
+ * @param  {object} map map object
+ * @param  {object} tar_id id of the component that was reference from the current node's position attribute
+ * @param  {object} ref_id id of the node that refering the targeted component
+ * @param  {object} attrref attributes of the refering view
+ * @param  {object} attrtar attributes of the refered view
+ * @return {object} the new map json
+ */
 
 function mapthis(map, tar_id, ref_id, attrref, attrtar) {
 
@@ -103,6 +119,14 @@ function mapthis(map, tar_id, ref_id, attrref, attrtar) {
 
 }
 
+
+/**
+ * function to create node map from existing position attributes that user have set
+ * @param  {object} map empty map object
+ * @param  {[{attributes:[]}, {id: 0}]} data children attributes of the selected view
+ * @return {object} the new map json
+ */
+
 function createMapData(map, data) {
     var tmp = -1;
     for (var i = 0; i < data.length; i++) {
@@ -137,11 +161,22 @@ function createMapData(map, data) {
     return map;
 }
 
-/*****
- * 
- * Find root
- * 
+/**
+ * function to find roots for the map (anchor)
+ * Currently we're choosing the left and upper border as the anchor
+ * This is the side that we choose:
+ * -------------------
+ * |
+ * |
+ * |
+ * |
+ * |
+ * The right and bottom border will be created based on the anchor
+ * @param  {object} map map object that was created from mapLayoutNodeRelation
+ * @param  {object} parentId id of the parent view that contain the current views
+ * @return {object} the new root array
  */
+
 function findRoots(map, parentId) {
     var root_arr = [];
 
@@ -156,6 +191,15 @@ function findRoots(map, parentId) {
 
 }
 
+/**
+ * function to find root for the map (anchor)
+ * @param  {object} root_arr the array that contain all root
+ * @param  {object} map current map
+ * @param  {object} cond1 the first condition
+ * @param  {object} cond2 the second condition
+ * @return {object} the new root array
+ */
+
 function getRootId(root_arr, map, cond1, cond2) {
     var tmp = map.filter((x) => {
         // console.log ("x ", x.attributes.thisLeft_toLeftOf[0], x.attributes.thisTop_toTopOf[0]);
@@ -167,7 +211,14 @@ function getRootId(root_arr, map, cond1, cond2) {
     return root_arr;
 }
 
-function getSingleRootId(root_arr, map) {
+/**
+ * function to find root that is lonely and doesn't have any relationship
+ * @param  {object} root_arr the array that contain all root
+ * @param  {object} map current map
+ * @return {object} the new root array
+ */
+
+ function getSingleRootId(root_arr, map) {
     var tmp = map.filter((x) => {
         // console.log ("x ", x.attributes.thisLeft_toLeftOf[0], x.attributes.thisTop_toTopOf[0]);
         return (x.attributes.thisLeft_toLeftOf[0] == 'none') &&
@@ -185,10 +236,14 @@ function getSingleRootId(root_arr, map) {
     return root_arr;
 }
 
-/****
- * 
- * get depth level
+/**
+ * function to generate col and row depth level for current map
+ * @param  {object} map current map
+ * @param  {object} root_arr the array that contain all root
+ * @param  {object} parentId id of the parent view that contain the current views
+ * @return {object} the new map that contain all the depth level
  */
+
 function getDepthLevel(map, root_arr, parentId) {
     for (var root in root_arr) {
         var node = { id: root_arr[root] };
@@ -197,6 +252,16 @@ function getDepthLevel(map, root_arr, parentId) {
     }
     return map;
 }
+
+/**
+ * function to generate col and row depth level from current root 
+ * @param  {object} map current map
+ * @param  {object} node root node
+ * @param  {object} col_depth col depth that want to be set
+ * @param  {object} row_depth row depth that want to be set
+ * @param  {object} parentId id of the parent view that contain the current views
+ * @return {object} the new map that contain the depth level that can be generated from the current root
+ */
 
 function setDepthForNode(map, node, col_depth, row_depth, parentId) {
 
@@ -219,6 +284,17 @@ function setDepthForNode(map, node, col_depth, row_depth, parentId) {
     return map;
 }
 
+/**
+ * Recursive function to generate col and row depth level for current node
+ * @param  {object} map current map
+ * @param  {object} index index of the current selected node in map
+ * @param  {object} col_depth col depth of the selected node
+ * @param  {object} row_depth row depth of the selected node
+ * @param  {object} node_path the array that contains visited node
+ * @param  {object} parentId id of the parent view that contain the current views
+ * @return {object} the map that contain new node with already set col and row depth (if possible)
+ */
+
 function setDepthForAllNodeBranch(map, index, col_depth, row_depth, node_path, parentId) {
     // console.log("thisBottom_toBottomOf");
     if (row_depth != -1) {
@@ -237,6 +313,18 @@ function setDepthForAllNodeBranch(map, index, col_depth, row_depth, node_path, p
 
     return map;
 }
+
+/**
+ * function to check node validity and then set col and row depth level for current node
+ * @param  {object} map current map
+ * @param  {object} index index of the current selected node in map
+ * @param  {object} attribute_name index of the current selected node in map
+ * @param  {object} col_depth col depth that want to be set
+ * @param  {object} row_depth row depth that want to be set
+ * @param  {object} node_path the array that contains visited node
+ * @param  {object} parentId id of the parent view that contain the current views
+ * @return {object} the map that contain new node with already set col and row depth (if possible)
+ */
 
 function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, node_path, parentId) {
     // console.log("Attrbute: ", attribute_name);
@@ -276,6 +364,16 @@ function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, nod
     return map;
 }
 
+/**
+ * function to set col and row depth level for current node
+ * @param  {object} map current map
+ * @param  {object} index index of the current selected node in map
+ * @param  {object} col_depth col depth that want to be set
+ * @param  {object} row_depth row depth that want to be set
+ * @param  {object} parentId id of the parent view that contain the current views
+ * @return {object} the map that contain new node with already set col and row depth (if possible)
+ */
+
 function setDepth(map, index, col_level, row_level, parentId) {
     // console.log("Map index", index);
     // console.log("col", col_level);
@@ -296,11 +394,15 @@ function setDepth(map, index, col_level, row_level, parentId) {
     return map;
 }
 
-/***
- * 
- * Get node map
- * 
- * 
+/**
+ * function to create node map, it inclues 3 steps: 
+ * Maping relation between 2 node
+ * Find root in the upper left corner
+ * Set col and row depth for map
+ * @param  {object} map empty map object
+ * @param  {object} childrenAttributes children attributes of the selected view
+ * @param  {object} id id of the current selected component 
+ * @return {object} the new map json
  */
 function getNodeMap(map, childrenAttributes, id) {
     // console.log("data", childrenAttributes);
