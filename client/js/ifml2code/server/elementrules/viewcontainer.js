@@ -145,7 +145,7 @@ function createMapData(map, data) {
 function findRoots(map, parentId) {
     var root_arr = [];
 
-    console.log("Root parent id", parentId);
+    // console.log("Root parent id", parentId);
     root_arr = getRootId(root_arr, map, parentId, parentId);
     root_arr = getRootId(root_arr, map, 'none', parentId);
     // root_arr = getRootId(root_arr, map, 'none', 'none');
@@ -162,7 +162,7 @@ function getRootId(root_arr, map, cond1, cond2) {
         return (x.attributes.thisLeft_toLeftOf[0] == cond1) && (x.attributes.thisTop_toTopOf[0] == cond2)
     }).map(x => x.id);
     root_arr = root_arr.concat(tmp);
-    console.log('root arr', root_arr);
+    // console.log('root arr', root_arr);
 
     return root_arr;
 }
