@@ -17,8 +17,7 @@ templatetomodel.generate = function (ifml) {
             let newJsonModel = generateViewContainerJsonModel(ifml_generated, element);
             ifml_generated.elements.push(newJsonModel);
             ifml_generated = addHierarchy(ifml_generated, element.id, newJsonModel.id);
-            ifml_generated = createViewComponentInside(ifml_generated, newJsonModel, element);
-            ifml_generated = generateNestedView(ifml_generated, element, newJsonModel);
+            ifml_generated = generateNestedView(ifml_generated, element, newJsonModel, element.attributes.refId);
         }
     });
     ifml_generated = removeTemplateJson(ifml_generated);
@@ -26,31 +25,35 @@ templatetomodel.generate = function (ifml) {
     return ifml_generated;
 };
 
-function createViewComponentInside(ifml_generated, element, parentElement) {
-    ifml_generated.relations.forEach(relation => {
-        if (relation.parent === parentElement.attributes.refId && relation.type === 'hierarchy') {
-            let tempJsonTemplate = generateComponentJsonModel(ifml_generated, parentElement, element.id, relation.child);
-            console.log(tempJsonTemplate);
-            ifml_generated = addHierarchy(ifml_generated, element.id, tempJsonTemplate.id);
-            ifml_generated.elements.push(tempJsonTemplate);
-        }
-    })
-    return ifml_generated;
-}
 
-function generateNestedView(ifml_generated, topParentElement, element) {
+/**
+ * function to create all view, nested view included
+ * @param  {object} ifml_generated IFML WHOLE JSON
+ * @param  {object} topParentElement element that contains placeholder information
+ * @param  {object} element the current selected component inside the view
+ * @param  {object} templateId Id of the targeted template
+ * @return {object} the new json
+ */
+
+function generateNestedView(ifml_generated, topParentElement, element, templateId) {
     ifml_generated.relations.forEach(relation => {
-        if (relation.parent === element.id && relation.type === 'hierarchy') {
+        if (relation.parent === templateId && relation.type === 'hierarchy') {
             let tempJsonTemplate = generateComponentJsonModel(ifml_generated, topParentElement, element.id, relation.child)
             ifml_generated = addHierarchy(ifml_generated, element.id, tempJsonTemplate.id);
             ifml_generated.elements.push(tempJsonTemplate);
             if (tempJsonTemplate.type === 'ifml.ViewContainer') {
-                ifml_generated = generateNestedView(ifml_generated, topParentElement, tempJsonTemplate)
+                ifml_generated = generateNestedView(ifml_generated, topParentElement, tempJsonTemplate, relation.child);
             }
         }
     })
     return ifml_generated;
 }
+
+/**
+ * function to remove all element that is item
+ * @param  {object} ifml_generated IFML WHOLE JSON
+ * @return {object} the new json
+ */
 
 function removeTemplateJson(ifml_generated) {
     let index = 0;
@@ -129,7 +132,8 @@ function addHierarchy(ifml_generated, parentId, childId) {
 
 function generateComponentJsonModel(ifml_generated, topParentElement, nearParentId, refId) {
     let jsonTemplate = getTemplate(ifml_generated, refId);
-    let tempJsonTemplate = _.cloneDeep(jsonTemplate)
+    let tempJsonTemplate = JSON.parse(JSON.stringify(jsonTemplate));
+    // let tempJsonTemplate = _.cloneDeep(jsonTemplate)
     topParentElement.attributes.placeholder.forEach(pair => {
         tempJsonTemplate = replacePropertyValue(pair.key, pair.value, tempJsonTemplate);
     });
@@ -148,7 +152,8 @@ function generateComponentJsonModel(ifml_generated, topParentElement, nearParent
 
 function generateViewContainerJsonModel(ifml_generated, element) {
     let jsonTemplate = getTemplate(ifml_generated, element.attributes.refId);
-    let tempJsonTemplate = _.cloneDeep(jsonTemplate)
+    let tempJsonTemplate = JSON.parse(JSON.stringify(jsonTemplate));
+    // let tempJsonTemplate = _.cloneDeep(jsonTemplate)
     element.attributes.placeholder.forEach(pair => {
         tempJsonTemplate = replacePropertyValue(pair.key, pair.value, tempJsonTemplate);
     });
