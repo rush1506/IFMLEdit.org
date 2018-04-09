@@ -379,9 +379,11 @@ function setDepth(map, index, col_level, row_level, parentId) {
     // console.log("col", col_level);
     // console.log("row", row_level);
     
-    if (map[index].attributes.thisLeft_toLeftOf[0] == parentId || map[index].attributes.thisLeft_toLeftOf[0] == 'none')
+    if ((map[index].attributes.thisLeft_toLeftOf[0] == parentId || map[index].attributes.thisLeft_toLeftOf[0] == 'none') &&
+        (map[index].attributes.thisLeft_toRightOf[0] == parentId || map[index].attributes.thisLeft_toRightOf[0] == 'none'))
         map[index].col_depth = 0;
-    if (map[index].attributes.thisTop_toTopOf[0] == parentId || map[index].attributes.thisTop_toTopOf[0] == 'none')
+    if ((map[index].attributes.thisTop_toTopOf[0] == parentId || map[index].attributes.thisTop_toTopOf[0] == 'none') &&
+        (map[index].attributes.thisTop_toBottomOf[0] == parentId || map[index].attributes.thisTop_toBottomOf[0] == 'none'))
         map[index].row_depth = 0;
     if (map[index].col_depth == -1 && col_level != -1) {
         map[index].col_depth = col_level;
@@ -573,10 +575,10 @@ exports.rules = [
             // console.log("Non xor maps", map);
             map = getNodeMap(map, childrenAttributes, id);
 
-            // console.log("Non xor final maps", map);
+            console.log("Non xor final maps", map);
             var sortedMap = sortMap(map);
             var finalMap = getAbsoluteNode(sortedMap);
-            // console.log("FINAL SORTED MAP NON XOR", finalMap);
+            console.log("FINAL SORTED MAP NON XOR", finalMap);
 
             obj[tid + '-view'] = { children: id + '-pug' };
             obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/nonxor.pug.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes }) };

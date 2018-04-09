@@ -148,7 +148,7 @@ function generateComponentJsonModel(ifml_generated, topParentElement, nearParent
     return tempJsonTemplate;
 }
 
-
+// NOT TESTED
 /**
  * Regenerate position attrs
  * @param  {object} tempJsonTemplate current selected view container element
@@ -169,7 +169,7 @@ function regenPositionAttributes(tempJsonTemplate, nearParentId) {
 
 }
 
-
+// NOT TESTED
 /**
  * Regenerate position attribute
  * @param  {object} attribute current selected attribute
