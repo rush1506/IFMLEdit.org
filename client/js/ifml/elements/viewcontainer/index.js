@@ -131,7 +131,9 @@ exports.ViewContainer = joint.shapes.basic.Generic.extend({
             );
             editables = editables.concat(
                 {property: 'styleattrs', name: 'Style', type: 'styleset'},
-                {property: 'isItem', name: 'Is Item', type: 'boolean'},
+                {name: 'Reference Type', type: 'booleanset', items: [
+                    {property: 'isItem', name: 'Is Item', type: 'boolean'},
+                ]},
                 {property: 'refId', name: 'Reference Id', type: 'string'}, 
                 {property: 'placeholder', name: 'Edit Placeholder', type: 'styleset'}, 
 

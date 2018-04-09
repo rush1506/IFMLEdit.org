@@ -56,14 +56,16 @@ function generateNestedView(ifml_generated, topParentElement, element, templateI
  */
 
 function removeTemplateJson(ifml_generated) {
-    let index = 0;
+    let existTemplate = 0;
     ifml_generated.elements.forEach(element => {
         //find the view container that contain all template view
         if (element.attributes.isItem) {
-            ifml_generated = removeAllRelatedView(ifml_generated, element.id);     
+            ifml_generated = removeAllRelatedView(ifml_generated, element.id); 
+            existTemplate = 1;    
         }
-        index++;
     });
+    if (existTemplate)
+        ifml_generated =removeTemplateJson(ifml_generated);
     return ifml_generated;
 }
 
