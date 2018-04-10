@@ -356,7 +356,7 @@ function setDepthForBranch(map, index, attribute_name, col_depth, row_depth, nod
                 node_path.push({ i: node_index });
                 // console.log ("node path push", node_path);
             }
-            map = setDepthForAllNodeBranch(map, node_index, col_depth, row_depth, node_path);
+            map = setDepthForAllNodeBranch(map, node_index, map[node_index].col_depth,  map[node_index].row_depth, node_path);
         }
     }
 
