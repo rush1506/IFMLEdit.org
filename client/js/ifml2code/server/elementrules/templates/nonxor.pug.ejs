@@ -16,7 +16,6 @@
 <%      }
     } %>
     .container
-        .row
 <%  for (var i = 0; i < events.length; ++i) {
         if (events[i].targetsAction) { -%>
             form(action=vm['<%= events[i].id %>'].action, method="POST")
