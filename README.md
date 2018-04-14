@@ -4,6 +4,17 @@ Advanced IFML generator
 
 ## Changelog
 
+## v1.0.4
+
+- Optimize sime UI for better UX
+- Added the ability to reference Layout to Layout for resuable Layout
+- Added Example
+
+## v1.0.2 && v1.0.3
+
+- Will not be pullable (internal change)
+- Adjust row and col depth algorithm
+
 ## v1.0.1
 
 - Pull and merge Mr.Carlo's new Code
