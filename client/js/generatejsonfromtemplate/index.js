@@ -159,7 +159,7 @@ function generateComponentJsonModel(ifml_generated, topParentElement, nearParent
 function regenPositionAttributes(tempJsonTemplate, nearParentId) {
     tempJsonTemplate = mapAttribute('thisBottom_toBottomOf', tempJsonTemplate, nearParentId);
     tempJsonTemplate = mapAttribute('thisBottom_toTopOf', tempJsonTemplate, nearParentId);
-    tempJsonTemplate = mapAttribute('thisLeft_toLeftOf ', tempJsonTemplate, nearParentId);
+    tempJsonTemplate = mapAttribute('thisLeft_toLeftOf', tempJsonTemplate, nearParentId);
     tempJsonTemplate = mapAttribute('thisLeft_toRightOf', tempJsonTemplate, nearParentId);
     tempJsonTemplate = mapAttribute('thisRight_toLeftOf', tempJsonTemplate, nearParentId);
     tempJsonTemplate = mapAttribute('thisRight_toRightOf', tempJsonTemplate, nearParentId);
@@ -169,7 +169,6 @@ function regenPositionAttributes(tempJsonTemplate, nearParentId) {
 
 }
 
-// NOT TESTED
 /**
  * Regenerate position attribute
  * @param  {object} attribute current selected attribute
