@@ -166,10 +166,10 @@ exports.rules = [
             // console.log("Non xor maps", map);
             map = getNodeMap(map, childrenAttributes, id);
 
-            console.log("Non xor final maps", map);
+            // console.log("Non xor final maps", map);
             var sortedMap = sortMap(map);
             var finalMap = getAbsoluteNode(sortedMap);
-            console.log("FINAL SORTED MAP NON XOR", finalMap);
+            // console.log("FINAL SORTED MAP NON XOR", finalMap);
 
             obj[tid + '-view'] = { children: id + '-pug' };
             obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/nonxor.pug.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes }) };
