@@ -20,5 +20,6 @@ exports.examples = [
     {title: 'IFML 12', url: 'examples/ifml12.json', image: 'examples/ifml12.png'},
     {title: 'IFML 13', url: 'examples/ifml13.json', image: 'examples/ifml13.png'},
     {title: 'IFML Apple Body Reference Relation', url: 'examples/ifml14.json', image: 'examples/ifml14.png'},
-    {title: 'IFML Apple Body', url: 'examples/ifml15.json', image: 'examples/ifml15.png'}
+    {title: 'IFML Apple Body', url: 'examples/ifml15.json', image: 'examples/ifml15.png'},
+    {title: 'Apple Body - Multi Referance', url: 'examples/ifml16.json', image: 'examples/ifml16.png'}
 ];
