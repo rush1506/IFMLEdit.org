@@ -434,7 +434,7 @@ function findLeftRoots(map, parentId) {
 
 function getLeftRootId(root_arr, map, condition) {
     var tmp = map.filter((x) => {
-        return (x.attributes.thisLeft_toLeftOf[0] == condition);
+        return (x.attributes.thisLeft_toLeftOf[0] == condition  && x.attributes.thisRight_toLeftOf[0] === 'none');
     }).map(x => x.id);
     root_arr = root_arr.concat(tmp);
     return root_arr;
@@ -473,7 +473,7 @@ function findUpperRoots(map, parentId) {
 
 function getUpperRootId(root_arr, map, condition) {
     var tmp = map.filter((x) => {
-        return (x.attributes.thisTop_toTopOf[0] == condition);
+        return (x.attributes.thisTop_toTopOf[0] == condition && x.attributes.thisTop_toBottomOf[0] === 'none');
     }).map(x => x.id);
     root_arr = root_arr.concat(tmp);
 
