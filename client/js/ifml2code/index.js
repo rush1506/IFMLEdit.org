@@ -11,6 +11,7 @@ var _ = require('lodash'),
     client = require('./client'),
     mobile = require('./mobile'),
     flutter = require('./flutter'),
+    react = require('./reactredux'),
     ifml2code = { };
 
 exports.ifml2code = ifml2code;
@@ -33,5 +34,10 @@ ifml2code.mobile = function (ifml) {
 
 ifml2code.flutter = function (ifml) {
     var transformed = flutter.transform(createModel(ifml));
+    return compact(transformed);
+};  
+
+ifml2code.react = function (ifml) {
+    var transformed = react.transform(createModel(ifml));
     return compact(transformed);
 };

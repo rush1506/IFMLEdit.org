@@ -48,15 +48,9 @@ html
                             li.active(role='presentation')
                                 a(role='tab', data-toggle='tab', aria-controls='ifml', href='#ifml') IFML
                             li(role='presentation')
-                                a(role='tab', data-toggle='tab', aria-controls='pcn', href='#pcn') PCN
-                            li(role='presentation')
                                 a(role='tab', data-toggle='tab', aria-controls='web-server', href='#web-server') Web Server
                             li(role='presentation')
-                                a(role='tab', data-toggle='tab', aria-controls='web-client', href='#web-client') Web Client
-                            li(role='presentation')
-                                a(role='tab', data-toggle='tab', aria-controls='mobile', href='#mobile') Mobile
-                            li(role='presentation')
-                                a(role='tab', data-toggle='tab', aria-controls='statistics', href='#statistics') Statistics
+                                a(role='tab', data-toggle='tab', aria-controls='reactjs', href='#reactjs') React
                             li(role='presentation')
                                 a(role='tab', data-toggle='tab', aria-controls='about', href='#about') About
             .tab-content
@@ -336,6 +330,20 @@ html
                                                     br
                                                     span.text-primary flutter&nbsp;
                                                     span.text-success run
+                                br
+                                br
+                                br
+                #reactjs.tab-pane(role='tabpanel')
+                    .container
+                        .row
+                            .col-xs-12.col-md-12
+                                ul.nav.nav-tabs(role='tablist')
+                                    li.active(role='presentation')
+                                        a(role='tab', data-toggle='tab', aria-controls='redux', href='#redux') Redux
+                                .tab-content
+                                    #redux.tab-pane.active(role='tabpanel')
+                                        h3 Download...
+                                        a.btn.btn-primary.zip-download(href='#!') Download the Source Files
                                 br
                                 br
                                 br
