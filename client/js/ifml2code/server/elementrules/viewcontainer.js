@@ -158,7 +158,7 @@ exports.rules = [
                 top = model.getTopLevelAncestor(element),
                 tid = top.id,
                 obj = {};
-            // console.log("Non xor master element", element);
+            console.log("Non xor master element", element);
             // console.log("Non xor children attribute", childrenAttributes);
             // console.log("Non xor logic attribute", logicAttributes);
 
