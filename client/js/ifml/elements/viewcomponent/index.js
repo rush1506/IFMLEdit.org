@@ -22,6 +22,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         size: {width: 150, height: 60},
         name: 'View Component',
         stereotype: 'form',
+        className: 'none',
         thisLeft_toRightOf: 'none',
         thisLeft_toLeftOf: 'none',
         thisRight_toRightOf: 'none',
@@ -152,6 +153,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
     editable: function () {
         var self = this;
         return _([{property: 'name', name: 'Name', type: 'string'},
+        {property: 'className', name: 'Class Name', type: 'string'},
                 {name: 'Reference Type', type: 'booleanset', items: [
                     {property: 'isItem', name: 'Is Item', type: 'boolean'},
                 ]},])

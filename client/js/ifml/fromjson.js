@@ -53,6 +53,7 @@ function mapViewComponent(component) {
         name: component.attributes.name,
         stereotype: component.attributes.stereotype,
         position: component.metadata.graphics.position,
+        className: component.attributes.className,
         size: component.metadata.graphics.size,
         thisLeft_toRightOf: component.attributes.thisLeft_toRightOf,
         thisLeft_toLeftOf: component.attributes.thisLeft_toLeftOf,

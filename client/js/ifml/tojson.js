@@ -53,6 +53,7 @@ function mapViewComponent(component) {
     obj.attributes.thisBottom_toBottomOf = component.get('thisBottom_toBottomOf');
     obj.attributes.thisBottom_toTopOf = component.get('thisBottom_toTopOf');
     obj.attributes.isItem = component.get('isItem');
+    obj.attributes.className = component.get('className');
     switch (component.get('stereotype')) {
     case 'details':
         obj.attributes.collection = component.get('collection') || '';
@@ -93,6 +94,8 @@ function mapViewContainer(container) {
 
     obj.attributes.width = container.get('width');
     obj.attributes.height = container.get('height');
+
+    obj.attributes.className = container.get('className');
 
     obj.attributes.thisLeft_toRightOf = container.get('thisLeft_toRightOf');
     obj.attributes.thisLeft_toLeftOf = container.get('thisLeft_toLeftOf');
