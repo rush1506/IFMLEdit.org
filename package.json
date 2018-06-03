@@ -27,6 +27,9 @@
         "open": "0.0.5",
         "pm2": "^2.7.2"
     },
+    "engines": {
+        "node": "8.9.4"
+    },
     "dependencies": {
         "aliasify": "^2.1.0",
         "almost": "^v1.0.0-alpha",
