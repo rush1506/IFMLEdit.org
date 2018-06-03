@@ -1,5 +1,5 @@
-#<%= id %>.<%= className %>(style="border: 1px solid #888;")
-    .container
+#<%= id %>.<%= className %>
+    .container-fluid
 <%  for (var j = 0; j < childrenAttributes.length; ++j) { -%>
         .row
 <%      for(var i = 0; i < childrenAttributes[j].length; i++) { %>
@@ -15,7 +15,7 @@
             <% } %>
 <%      }
     } %>
-    .container
+    .container-fluid
 <%  for (var i = 0; i < events.length; ++i) {
         if (events[i].targetsAction) { -%>
             form(action=vm['<%= events[i].id %>'].action, method="POST")
