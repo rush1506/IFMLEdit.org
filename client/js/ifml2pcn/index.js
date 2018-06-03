@@ -5,7 +5,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    utils = require('almost-joint').utils,
+    utils = require('almost-joint-ifml-layout').utils,
     createModel = require('../ifml/model').createModel,
     layout = require('./layout').layout,
     transform = require('./mobile').transform,

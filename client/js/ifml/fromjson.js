@@ -5,7 +5,7 @@
 "use strict";
 
 var _ = require('lodash'),
-    utils = require('almost-joint').utils,
+    utils = require('almost-joint-ifml-layout').utils,
     ifml = require('./').ifml;
 
 function mapViewContainer(container) {

@@ -65,7 +65,7 @@ gulp.task('vendor', function () {
                 './node_modules/bootstrap-notify/bootstrap-notify.js',
                 './node_modules/filesaver.js/FileSaver.js',
                 './node_modules/almost/dist/almost.js',
-                './node_modules/almost-joint/dist/almost-joint.js'])
+                './node_modules/almost-joint-ifml-layout/dist/almost-joint.js'])
                 .pipe(gulpif(!production, sourcemaps.init()))
                 .pipe(minifyjs())
                 .pipe(rename({suffix: '.min'}))
@@ -87,7 +87,7 @@ gulp.task('vendor', function () {
                 .pipe(gulp.dest('./public/js')),
         gulp.src(['./node_modules/jointjs/dist/joint.css',
                 './node_modules/bootstrap/dist/css/bootstrap.css',
-                './node_modules/almost-joint/dist/almost-joint.css'])
+                './node_modules/almost-joint-ifml-layout/dist/almost-joint.css'])
                 .pipe(gulpif(!production, sourcemaps.init()))
                 .pipe(minifyCss({compatibility: 'ie8'}))
                 .pipe(rename({suffix: '.min'}))
@@ -120,7 +120,7 @@ gulp.task('index', function () {
                 'URL': 'URL',
                 'Worker': 'Worker',
                 'almost': 'almost',
-                'almost-joint': 'almost.plugins.joint'
+                'almost-joint-ifml-layout': 'almost.plugins.joint'
             }
         })
         .transform('stringify', {
