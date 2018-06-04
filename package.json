@@ -56,6 +56,7 @@
         "gulp-sass": "^3.1.0",
         "gulp-sourcemaps": "^2.6.1",
         "gulp-uglify": "^3.0.0",
+        "gulp-uglify-es": "^1.0.4",
         "icon-gen": "^1.2.0",
         "jointjs": "^2.0.0",
         "jquery": "3.1.1",
