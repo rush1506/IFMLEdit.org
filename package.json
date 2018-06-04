@@ -8,7 +8,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "gulp",
         "reload": "npm stop && npm start",
-        "postinstall": "npm run build && npm --silent stop && npm start",
+        "postinstall": "npm run build",
         "start": "pm2 start --name=IFMLEdit.org index.js && gulp watch",
         "poststart": "node -e \"require('open')('http://localhost:3000')\"",
         "stop": "pm2 stop IFMLEdit.org"
