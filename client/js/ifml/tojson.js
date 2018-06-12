@@ -109,6 +109,8 @@ function mapViewContainer(container) {
     obj.attributes.styleattrs = (container.get('styleattrs') && container.get('styleattrs').slice()) || [];
     obj.attributes.placeholder = (container.get('placeholder') && container.get('placeholder').slice()) || [];
     obj.metadata.graphics.size = container.get('size');
+
+    obj.attributes.className = container.get('className');
     return obj;
 }
 

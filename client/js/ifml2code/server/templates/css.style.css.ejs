@@ -1,5 +1,5 @@
 <%  for (var i = 0; i < css.elements.length; i++) { 
-if (css.elements[i].type == "ifml.ViewContainer" && css.elements[i].attributes.styleattrs.length > 0) { %>
+if (css.elements[i].attributes.styleattrs && css.elements[i].attributes.styleattrs.length > 0) { %>
 #<%= css.elements[i].id %> {
 <% for (var attr in css.elements[i].attributes.styleattrs) { %>
     <%= css.elements[i].attributes.styleattrs[attr].key %> : <%=  css.elements[i].attributes.styleattrs[attr].value %>;
