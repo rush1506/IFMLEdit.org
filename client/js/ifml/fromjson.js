@@ -51,6 +51,7 @@ function mapViewComponent(component) {
     var attributes = {
         id: component.id,
         name: component.attributes.name,
+        className: component.attributes.className,
         stereotype: component.attributes.stereotype,
         position: component.metadata.graphics.position,
         size: component.metadata.graphics.size,

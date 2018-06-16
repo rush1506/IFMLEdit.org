@@ -43,6 +43,7 @@ function mapAction(action) {
 function mapViewComponent(component) {
     var obj = mapElement(component);
     obj.attributes.name = component.get('name');
+    obj.attributes.className = component.get('className');
     obj.attributes.stereotype = component.get('stereotype');
     obj.attributes.thisLeft_toRightOf = component.get('thisLeft_toRightOf');
     obj.attributes.thisLeft_toLeftOf = component.get('thisLeft_toLeftOf');

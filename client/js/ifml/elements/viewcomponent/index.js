@@ -21,6 +21,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         type: 'ifml.ViewComponent',
         size: {width: 150, height: 60},
         name: 'View Component',
+        className: 'none',
         stereotype: 'form',
         thisLeft_toRightOf: 'none',
         thisLeft_toLeftOf: 'none',
@@ -152,6 +153,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
     editable: function () {
         var self = this;
         return _([{property: 'name', name: 'Name', type: 'string'},
+                  {property: 'className', name: 'Class Name', type: 'string'},
                 {name: 'Reference Type', type: 'booleanset', items: [
                     {property: 'isItem', name: 'Is Item', type: 'boolean'},
                 ]},])
