@@ -82,6 +82,7 @@ exports.rules = [
         function(element, model) {
             var id = element.id,
                 name = element.attributes.name,
+                className = element.attributes.className,
                 top = model.getTopLevelAncestor(element),
                 tid = top.id,
                 incomings = _.chain(model.getInbounds(id))
@@ -104,8 +105,9 @@ exports.rules = [
                 .value(),
                 attributes = element.attributes,                
                 obj = {};
+                console.log('dsbhdsd', attributes, className)
             obj[tid + '-view'] = { children: id + '-pug' };
-            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/button.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/button.pug.ejs')({ id: id, name: name, className: className, events: events, attributes: attributes }) };
             obj[tid + '-viewmodel'] = { children: id + '-js' };
             obj[id + '-js'] = { name: id + '.js', content: require('./templates/button.js.ejs')({ id: id, incomings: incomings, events: events }) };
             return obj;

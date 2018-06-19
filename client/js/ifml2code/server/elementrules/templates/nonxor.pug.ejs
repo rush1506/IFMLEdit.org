@@ -1,7 +1,11 @@
 #<%= id %>.<%= className %>
-    .container
+    .container(style="max-width: 100%;")
 <%  for (var j = 0; j < childrenAttributes.length; ++j) { -%>
+    <% if (style.find((x) => (x.key === 'justify-content' && x.value === 'center')))  { %>
+        .row(style="justify-content:center")
+    <% } else { %>
         .row
+    <% } %>
 <%      for(var i = 0; i < childrenAttributes[j].length; i++) { %>
             <% if(childrenAttributes[j][i].type === 'normal') { %>                
                 include ./<%= childrenAttributes[j][i].elements[0].id %>.pug

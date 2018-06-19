@@ -170,9 +170,8 @@ exports.rules = [
             var sortedMap = sortMap(map);
             var finalMap = getAbsoluteNode(sortedMap);
             // console.log("FINAL SORTED MAP NON XOR", finalMap);
-
             obj[tid + '-view'] = { children: id + '-pug' };
-            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/nonxor.pug.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes }) };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/nonxor.pug.ejs')({ id: id, children: children, events: events, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes, style: element.attributes.styleattrs }) };
             obj[tid + '-viewmodel'] = { children: id + '-view-js' };
             obj[id + '-view-js'] = { name: id + '.js', content: require('./templates/nonxor.js.ejs')({ id: id, children: children, events: events }) };
             return obj;
