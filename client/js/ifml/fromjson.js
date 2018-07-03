@@ -91,6 +91,30 @@ function mapViewComponent(component) {
         attributes.src = component.attributes.src;
         attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
         break;
+    case 'cardview':
+        attributes.header = component.attributes.header;
+        attributes.content = component.attributes.content;
+        attributes.footer = component.attributes.footer;
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
+    case 'table':
+        attributes.column = component.attributes.column;
+        attributes.row = component.attributes.row;
+        attributes.tableattrs =  (component.attributes.tableattrs && component.attributes.tableattrs.slice()) || [];
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
+    case 'menu':
+        attributes.menuattrs =  (component.attributes.menuattrs && component.attributes.menuattrs.slice()) || [];
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
+    case 'media':
+        attributes.src = component.attributes.src;
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
+    case 'select':
+        attributes.selectattrs =  (component.attributes.selectattrs && component.attributes.selectattrs.slice()) || [];
+        attributes.styleattrs =  (component.attributes.styleattrs && component.attributes.styleattrs.slice()) || [];
+        break;
     }
     return new ifml.elements.ViewComponent(attributes);
 }

@@ -80,6 +80,30 @@ function mapViewComponent(component) {
         obj.attributes.value = component.get('value');
         obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
         break;
+    case 'cardview':
+        obj.attributes.header = component.get('header');
+        obj.attributes.content = component.get('content');
+        obj.attributes.footer = component.get('footer');
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
+    case 'table':
+        obj.attributes.column = component.get('column');
+        obj.attributes.row = component.get('row');
+        obj.attributes.tableattrs = (component.get('tableattrs') && component.get('tableattrs').slice()) || [];
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
+    case 'menu':
+        obj.attributes.menuattrs = (component.get('menuattrs') && component.get('menuattrs').slice()) || [];
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
+    case 'media':
+        obj.attributes.src = component.get('src');
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
+    case 'select':
+        obj.attributes.selectattrs = (component.get('selectattrs') && component.get('selectattrs').slice()) || [];
+        obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
+        break;
     }
     obj.metadata.graphics.size = component.get('size');
     return obj;

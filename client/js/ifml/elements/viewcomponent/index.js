@@ -124,6 +124,11 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
         case 'text':
         case 'image':
         case 'button':
+        case 'cardview':
+        case 'menu':
+        case 'select':
+        case 'table':
+        case 'media':
             break;
         default:
             this.attr({'.ifml-component-headline': {'y-alignment': 'middle'}});
@@ -137,6 +142,11 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
             case 'text':
             case 'image':
             case 'button':
+            case 'cardview':
+            case 'menu':
+            case 'select':
+            case 'table':
+            case 'media':
                 return;
             default:
                 break;
@@ -189,7 +199,36 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
                     return [
                         {property: 'value', name: 'value', type: 'string'},
                         {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ];
+                case 'cardview':
+                    return [
+                        {property: 'header', name: 'header', type: 'string'},
+                        {property: 'content', name: 'content', type: 'string'},
+                        {property: 'footer', name: 'footer', type: 'string'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
                     ]; 
+                case 'table':
+                    return [
+                        {property: 'column', name: 'column', type: 'string'},
+                        {property: 'row', name: 'row', type: 'string'},
+                        {property: 'tableattrs', name: 'Table Attributes', type: 'styleset'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ];    
+                case 'menu':
+                    return [
+                        {property: 'menuattrs', name: 'Menu Attributes', type: 'styleset'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ];     
+                case 'media':
+                    return [
+                        {property: 'src', name: 'src', type: 'string'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ];      
+                case 'select':
+                    return [
+                        {property: 'selectattrs', name: 'Select Attributes', type: 'styleset'},
+                        {property: 'styleattrs', name: 'Style', type: 'styleset'},
+                    ];         
                 default:
                     return [];
                 }

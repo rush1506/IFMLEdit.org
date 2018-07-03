@@ -9,5 +9,10 @@ exports.nets = {
     createList: require('./list').createList,
     createButton:  require('./button').createButton,
     createText:  require('./text').createText,
-    createImage:  require('./image').createImage
+    createImage:  require('./image').createImage,
+    createCardview:  require('./cardview').createCardview,
+    createTable:  require('./table').createTable,
+    createMenu:  require('./menu').createMenu,
+    createMedia:  require('./media').createMedia,
+    createSelect:  require('./select').createSelect
 };

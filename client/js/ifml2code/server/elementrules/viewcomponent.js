@@ -42,6 +42,181 @@ function groupInputFields(element) {
 }
 
 exports.rules = [
+    createRule( // map table
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'table' && !element.attributes.isItem; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                collection = element.attributes.collection,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/table.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/table.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
+    createRule( // map media
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'media' && !element.attributes.isItem; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                collection = element.attributes.collection,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/media.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/media.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
+    createRule( // map select
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'select' && !element.attributes.isItem; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                collection = element.attributes.collection,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/select.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/select.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
+    createRule( // map menu
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'menu' && !element.attributes.isItem; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                collection = element.attributes.collection,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/menu.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/menu.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
+    createRule( // map cardview
+        function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'cardview' && !element.attributes.isItem; },
+        function(element, model) {
+            var id = element.id,
+                name = element.attributes.name,
+                collection = element.attributes.collection,
+                top = model.getTopLevelAncestor(element),
+                tid = top.id,
+                incomings = _.chain(model.getInbounds(id))
+                .filter(function(id) { return model.isDataFlow(id); })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(flow) {
+                    var source = model.getSource(flow);
+                    return { source: source.id, type: source.attributes.stereotype, bindings: flow.attributes.bindings };
+                })
+                .value(),
+                events = _.chain(model.getChildren(id))
+                .filter(function(id) { return model.isEvent(id); })
+                .filter(function(id) { return model.getOutbounds(id).length; })
+                .map(function(id) { return model.toElement(id); })
+                .map(function(event) {
+                    var flow = model.getOutbounds(event)[0],
+                        target = flow && model.getTarget(flow);
+                    return { id: event.id, name: event.attributes.name, targetsAction: model.isAction(target) };
+                })
+                .value(),
+                attributes = element.attributes,                
+                obj = {};
+            obj[tid + '-view'] = { children: id + '-pug' };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/cardview.pug.ejs')({ id: id, name: name, events: events, attributes: attributes }) };
+            obj[tid + '-viewmodel'] = { children: id + '-js' };
+            obj[id + '-js'] = { name: id + '.js', content: require('./templates/cardview.js.ejs')({ id: id, incomings: incomings, events: events }) };
+            return obj;
+        }
+    ),
     createRule( // map image
         function(element, model) { return model.isViewComponent(element) && element.attributes.stereotype === 'image' && !element.attributes.isItem; },
         function(element, model) {
