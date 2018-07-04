@@ -222,6 +222,7 @@ exports.ViewComponent = joint.shapes.basic.Generic.extend({
                 case 'media':
                     return [
                         {property: 'src', name: 'src', type: 'string'},
+                        {property: 'mediatype', name: 'Media Type', type: 'string'},
                         {property: 'styleattrs', name: 'Style', type: 'styleset'},
                     ];      
                 case 'select':

@@ -44,7 +44,12 @@ exports.rules = [
                     .reject((x) => {return x.attributes.stereotype === 'form' || 
                         x.attributes.stereotype === 'image' ||
                         x.attributes.stereotype === 'button' ||
-                        x.attributes.stereotype === 'text'})
+                        x.attributes.stereotype === 'text' ||  
+                        x.attributes.stereotype === 'cardview' ||
+                        x.attributes.stereotype === 'media' ||
+                        x.attributes.stereotype === 'table' ||
+                        x.attributes.stereotype === 'menu' ||
+                        x.attributes.stereotype === 'select'})
                     .map(function (c) {
                         if (c.attributes.collection) {
                             return c.attributes.collection;

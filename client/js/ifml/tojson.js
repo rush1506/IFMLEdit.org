@@ -98,6 +98,7 @@ function mapViewComponent(component) {
         break;
     case 'media':
         obj.attributes.src = component.get('src');
+        obj.attributes.mediatype = component.get('mediatype');
         obj.attributes.styleattrs = (component.get('styleattrs') && component.get('styleattrs').slice()) || [];
         break;
     case 'select':
