@@ -1,16 +1,24 @@
 #<%= id %>.<%= className %>
-    .container-xz
+    .container(style="max-width: 100%;")
+<%  for (var j = 0; j < childrenAttributes.length; ++j) { -%>
+    <% if (style.find((x) => (x.key === 'justify-content' && x.value === 'center')))  { %>
+        .row(style="justify-content:center")
+    <% } else { %>
         .row
-<% for (var i = 0; i < landmarks.length; ++i) { -%>
-            a.col-xs-2.btn.btn-default(href=vm['<%= id %>'].landmarks['<%= landmarks[i].id %>'].href) <%= landmarks[i].name %>
-<% } -%>
-
-        .row
-<% for (var i = 0; i < children.length; ++i) { -%>
-    if vm['<%= id %>'].active === '<%= children[i] %>'
-            .col-auto
-                include ./<%= children[i] %>.pug
-<% } -%>
+    <% } %>
+<%      for(var i = 0; i < childrenAttributes[j].length; i++) { %>
+            <% if(childrenAttributes[j][i].type === 'normal') { %>                
+                include ./<%= childrenAttributes[j][i].elements[0].id %>.pug
+            <% } %>
+            <% if(childrenAttributes[j][i].type === 'absolute') { %>                
+                .abs-wrapper(style="position:relative;")
+                    <% for(var z = 0; z < childrenAttributes[j][i].elements.length; z++) { %>
+                        .abs-item(style="position:absolute;")
+                            include ./<%= childrenAttributes[j][i].elements[z].id %>.pug
+                    <% } %>
+            <% } %>
+<%      }
+    } %>
     .container
         .row
 <% for (var i = 0; i < events.length; ++i) {
@@ -22,4 +30,19 @@
 <%    } else { -%>
             a.col-xs-2.btn.btn-default(href=vm['<%= events[i].id %>'].href) <%= events[i].name %>
 <%    }
-   } -%>
+   } %>
+<%  for (var i = 0; i < logicAttributes.length; ++i) {
+    if (logicAttributes[i].attributes.stereotype === "form") { -%>
+        include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "list") { -%>
+        include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "image") { -%>
+        include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "text") { -%>
+        include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "button") { -%>
+        include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "detail") {
+
+    }
+} -%>

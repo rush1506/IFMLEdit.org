@@ -1,0 +1,11 @@
+table.table.table-bordered
+  tr
+    <% for(var i=0; i < attributes.tableattrs.length; i++) { %>
+      th <%= attributes.tableattrs[i].value %>
+    <% } %>
+<% for(var i=0; i < Number(attributes.row); i++) { %>
+  tr
+    <% for(var j=0; j < Number(attributes.column); j++) { %>
+      td Text
+    <% } %>
+<% } %>

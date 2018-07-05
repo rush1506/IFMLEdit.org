@@ -238,9 +238,11 @@ exports.rules = [
             map = getNodeMap(map, childrenAttributes, id);
 
             // console.log("Xor final map", map);
-
+            var sortedMap = sortMap(map);
+            var finalMap = getAbsoluteNode(sortedMap);
+            
             obj[tid + '-view'] = { children: id + '-pug' };
-            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/xor.pug.ejs')({ id: id, children: children, events: events, landmarks: landmarks, className: className, childrenAttributes: childrenAttributes }) };
+            obj[id + '-pug'] = { name: id + '.pug', content: require('./templates/xor.pug.ejs')({ id: id, children: children, events: events, landmarks: landmarks, className: className, childrenAttributes: finalMap, logicAttributes: logicAttributes, style: element.attributes.styleattrs }) };
             obj[tid + '-viewmodel'] = { children: id + '-view-js' };
             obj[id + '-view-js'] = { name: id + '.js', content: require('./templates/xor.js.ejs')({ id: id, children: children, events: events, defaultChild: defaultChild, currentTopLevel: tid, landmarks: landmarks, path: path }) };
             return obj;

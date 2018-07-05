@@ -41,7 +41,15 @@
             include ./<%= logicAttributes[i].id %>.pug
 <%      } else if(logicAttributes[i].attributes.stereotype === "button") { -%>
             include ./<%= logicAttributes[i].id %>.pug
-<%      } else if(logicAttributes[i].attributes.stereotype === "detail") {
-
-        }
+<%      } else if(logicAttributes[i].attributes.stereotype === "cardview") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "select") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "table") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "media") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      } else if(logicAttributes[i].attributes.stereotype === "menu") { -%>
+            include ./<%= logicAttributes[i].id %>.pug
+<%      }
     } -%>
